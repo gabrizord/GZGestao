@@ -39,10 +39,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/error").permitAll()
+                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/protected/**").authenticated()
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login")
                         .failureUrl("/login?error=true")
-                        .defaultSuccessUrl("/dashboard", true)
+                        .defaultSuccessUrl("/home", true)
                         .permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)

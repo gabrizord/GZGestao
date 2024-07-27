@@ -10,9 +10,4 @@ public class LoginController {
     public String login() {
         return "auth/login";
     }
-
-    @GetMapping("/dashboard")
-    public String index() {
-        return "dashboard/dashboard";
-    }
 }
