@@ -17,6 +17,15 @@ spring:
       mode: always
   profiles:
     active: local
+  thymeleaf:
+    cache: false
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      exclude: static/**,public/**
+      additional-exclude: custom-dir/**,another-dir/**
+
 
 jwt:
   public:
