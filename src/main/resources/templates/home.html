@@ -1,23 +1,17 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en" dir="ltr">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | CodingLab</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-    <link rel="stylesheet" th:href="@{protected/css/home-styles.css}">
+    <title>Thymeleaf - Fragments</title>
+    <link rel="stylesheet" th:href="@{/protected/css/header.css}">
+    <link rel="stylesheet" th:href="@{/protected/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/protected/css/footer.css}">
 </head>
 <body>
-<div class="container">
-    <div class="title">Dashboard</div>
-    <div class="welcome-text">
-        Welcome, <span th:text="${#authentication.name}">User</span>!
-    </div>
-    <div class="buttons">
-        <a href="#" th:href="@{/profile}">Profile</a>
-        <a href="#" th:href="@{/settings}">Settings</a>
-        <a href="#" th:href="@{/logout}">Logout</a>
-    </div>
-</div>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <p>Home Template Content</p>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
