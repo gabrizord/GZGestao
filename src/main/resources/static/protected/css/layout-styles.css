@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+/* General styles */
 body {
     font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
@@ -8,23 +9,33 @@ body {
     padding-top: 56px;
 }
 
+/* Header navbar */
+.navbar-custom {
+    background-color: #0056b3;
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: white;
+}
+.navbar-custom .nav-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.footer-custom {
+    background-color: #0056b3;
+    color: white;
+}
+.footer-custom a {
+    color: white;
+}
+.footer-custom a:hover {
+    text-decoration: underline;
+}
+
+/* Main content */
 main {
     padding: 20px;
 }
 
-.sidebar {
-    height: 100vh;
-    background-color: #0056b3;
-}
 
-.sidebar .nav-link {
-    color: white;
-}
-
-.sidebar .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.sidebar .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.2);
-}
