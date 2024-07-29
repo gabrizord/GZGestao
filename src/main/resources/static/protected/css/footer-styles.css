@@ -1,0 +1,10 @@
+.footer-custom {
+    background-color: #0056b3;
+    color: white;
+}
+.footer-custom a {
+    color: white;
+}
+.footer-custom a:hover {
+    text-decoration: underline;
+}

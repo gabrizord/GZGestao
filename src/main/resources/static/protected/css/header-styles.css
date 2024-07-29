@@ -1,0 +1,10 @@
+.navbar-custom {
+    background-color: #0056b3;
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: white;
+}
+.navbar-custom .nav-link:hover {
+    text-decoration: underline;
+}
