@@ -45,7 +45,7 @@ public class AdminUserInitializer implements CommandLineRunner {
                 userRepository.save(adminUser);
                 logger.info("Admin user created successfully.");
             } else {
-                logger.info("Admin role not found.");
+                logger.info("Admin role role not found.");
             }
         } else {
             logger.info("Admin user already exists.");
