@@ -1,5 +1,6 @@
 # GZ Gestão de Manutenção e Preventivas
 
+[![CI Test](https://github.com/gabrizord/GZGestao/actions/workflows/test-maven.yml/badge.svg)](https://github.com/gabrizord/GZGestao/actions/workflows/test-maven.yml)
 [![build](https://github.com/gabrizord/GZGestao/actions/workflows/maven.yml/badge.svg)](https://github.com/gabrizord/GZGestao/actions/workflows/maven.yml)
 
 Este projeto é um sistema de gerenciamento de manutenção e preventivas, projetado para automatizar e facilitar a gestão de manutenções em supermercados. Inclui funcionalidades para autenticação de usuários, gestão de funcionários e supermercados, solicitações de manutenção, e muito mais.
