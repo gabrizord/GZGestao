@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Configuration
-@Profile("local")
+@Profile("dev")
 public class LocalDevConfig {
 
     public LocalDevConfig(final TemplateEngine templateEngine) throws IOException {

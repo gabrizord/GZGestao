@@ -1,31 +1,8 @@
 spring:
   application:
     name: GZGestao
-  datasource:
-    url: jdbc:postgresql://localhost:5432/database
-    username: user
-    password: password
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    open-in-view: false
-    defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always
   profiles:
-    active: local
-  thymeleaf:
-    cache: false
-  devtools:
-    livereload:
-      enabled: true
-    restart:
-      exclude: static/**,public/**
-      additional-exclude: custom-dir/**,another-dir/**
-
+    active: dev
 
 jwt:
   public:
