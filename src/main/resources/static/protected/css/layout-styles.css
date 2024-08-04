@@ -54,7 +54,8 @@ a {
     overflow: hidden;
 }
 .header_img img {
-    width: 40px;
+    width: 30px;
+    height: 30px;
 }
 .l-navbar {
     position: fixed;
@@ -86,8 +87,8 @@ a {
     margin-bottom: 2rem;
 }
 .nav_logo-icon {
-    font-size: 1.25rem;
-    color: var(--white-color);
+    width: 24px; /* ou outro tamanho conforme necessário */
+    height: 24px;
 }
 .nav_logo-name {
     color: var(--white-color);
