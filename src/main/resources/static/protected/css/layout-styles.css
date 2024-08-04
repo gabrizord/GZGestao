@@ -4,7 +4,7 @@
     --nav-width: 68px;
     --first-color: #212529;
     --first-color-light: #f7f6f1;
-    --white-color: #f7f6fb;
+    --white-color: #ffffff;
     --body-font: "Roboto", sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100;
@@ -21,6 +21,7 @@ body {
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     transition: 0.5s;
+    background-color: #F3F3F9;
 }
 a {
     text-decoration: none;
