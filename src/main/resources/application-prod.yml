@@ -25,14 +25,6 @@ spring:
     restart:
       exclude: static/**,public/**
       additional-exclude: custom-dir/**,another-dir/**
-
-
-jwt:
-  public:
-    key: classpath:app.pub
-  private:
-    key: classpath:app.key
-
 logging:
   level:
     org:

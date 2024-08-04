@@ -22,18 +22,24 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Value("${jwt.public.key}")
-    private RSAPublicKey publicKey;
+    private String publicKey;
 
     @Value("${jwt.private.key}")
-    private RSAPrivateKey privateKey;
+    private String privateKey;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -65,12 +71,12 @@ public class SecurityConfig {
 
     @Bean
     public JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withPublicKey(publicKey).build();
+        return NimbusJwtDecoder.withPublicKey(getPublicKey(String.valueOf(publicKey))).build();
     }
 
     @Bean
     public JwtEncoder jwtEncoder() {
-        JWK jwk = new RSAKey.Builder(this.publicKey).privateKey(privateKey).build();
+        JWK jwk = new RSAKey.Builder(getPublicKey(publicKey)).privateKey(getPrivateKey(privateKey)).build();
         var jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwks);
     }
@@ -78,6 +84,30 @@ public class SecurityConfig {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    private RSAPublicKey getPublicKey(String key) {
+        try {
+            String publicKeyPEM = key.replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "").replaceAll("\\s+", "");
+            byte[] encoded = Base64.getDecoder().decode(publicKeyPEM);
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(encoded);
+            return (RSAPublicKey) keyFactory.generatePublic(keySpec);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new IllegalArgumentException("Failed to load public key", e);
+        }
+    }
+
+    private RSAPrivateKey getPrivateKey(String key) {
+        try {
+            String privateKeyPEM = key.replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "").replaceAll("\\s+", "");
+            byte[] encoded = Base64.getDecoder().decode(privateKeyPEM);
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encoded);
+            return (RSAPrivateKey) keyFactory.generatePrivate(keySpec);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new IllegalArgumentException("Failed to load private key", e);
+        }
     }
 
 
