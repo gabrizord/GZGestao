@@ -32,23 +32,33 @@ public class AdminUserInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         Optional<User> admin = userRepository.findByUsername("admin");
+        Optional<User> gabrizord = userRepository.findByUsername("gabrizord");
 
-        if (admin.isEmpty()) {
+        if (admin.isEmpty() && gabrizord.isEmpty()) {
             Optional<Role> adminRole = roleRepository.findByName(RoleName.ADMIN);
-
-            if (adminRole.isPresent()) {
+            Optional<Role> basicRole = roleRepository.findByName(RoleName.BASIC);
+            if (adminRole.isPresent() && basicRole.isPresent()) {
                 User adminUser = new User();
+                User gabrizordUser = new User();
+
                 adminUser.setUsername("admin");
                 adminUser.setEmail("admin@example.com");
                 adminUser.setPassword(passwordEncoder.encode("password"));
                 adminUser.setRoles(Collections.singleton(adminRole.get()));
+
+                gabrizordUser.setUsername("gabrizord");
+                gabrizordUser.setEmail("dev.gabrizord@example.com");
+                gabrizordUser.setPassword(passwordEncoder.encode("password"));
+                gabrizordUser.setRoles(Collections.singleton(basicRole.get()));
+
+                userRepository.save(gabrizordUser);
                 userRepository.save(adminUser);
-                logger.info("Admin user created successfully.");
+                logger.info("Users created successfully.");
             } else {
-                logger.info("Admin role role not found.");
+                logger.info("Users role role not found.");
             }
         } else {
-            logger.info("Admin user already exists.");
+            logger.info("Users user already exists.");
         }
     }
 }

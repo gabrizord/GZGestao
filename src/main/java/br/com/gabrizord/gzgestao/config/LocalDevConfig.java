@@ -21,6 +21,7 @@ public class LocalDevConfig {
             while (Objects.requireNonNull(sourceRoot.listFiles((dir, name) -> name.equals("mvnw"))).length != 1) {
                 sourceRoot = sourceRoot.getParentFile();
             }
+
             final FileTemplateResolver fileTemplateResolver = new FileTemplateResolver();
             fileTemplateResolver.setPrefix(sourceRoot.getPath() + "/src/main/resources/templates/");
             fileTemplateResolver.setSuffix(".html");
