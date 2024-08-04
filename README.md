@@ -3,13 +3,13 @@
 [![CI Test](https://github.com/gabrizord/GZGestao/actions/workflows/test-maven.yml/badge.svg)](https://github.com/gabrizord/GZGestao/actions/workflows/test-maven.yml)
 [![build](https://github.com/gabrizord/GZGestao/actions/workflows/maven.yml/badge.svg)](https://github.com/gabrizord/GZGestao/actions/workflows/maven.yml)
 
-Este projeto é um sistema de gerenciamento de manutenção e preventivas, projetado para automatizar e facilitar a gestão de manutenções em supermercados. Inclui funcionalidades para autenticação de usuários, gestão de funcionários e supermercados, solicitações de manutenção, e muito mais.
+Este projeto é um sistema de gerenciamento de manutenção e preventivas, projetado para automatizar e facilitar a gestão de manutenções em empresas diversas. Inclui funcionalidades para autenticação de usuários, gestão de funcionários e empresas, solicitações de manutenção, e muito mais.
 
 ## Funcionalidades
 
 - **Autenticação e Autorização**: Gerencie o acesso ao sistema com roles definidas para administradores e técnicos.
-- **Gestão de Funcionários**: CRUD completo para gerenciamento de funcionários.
-- **Gestão de Supermercados**: CRUD completo para gerenciamento de supermercados.
+- **Gestão de Colaboradores**: CRUD completo para gerenciamento de funcionários.
+- **Gestão de Empresas**: CRUD completo para gerenciamento de Empresas.
 - **Gestão de Solicitações de Manutenção**: CRUD para gerenciamento e registro de solicitações de manutenção.
 - **Relatórios e Dashboards**: Visualização de dados estatísticos e operacionais.
 - **Notificações**: Sistema de notificações para manter usuários informados sobre atualizações importantes.
