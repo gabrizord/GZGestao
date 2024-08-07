@@ -1,32 +1,27 @@
 spring:
-  application:
-    name: GZGestao
   datasource:
-    url: jdbc:postgresql://localhost:5432/database
-    username: user
-    password: password
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     open-in-view: false
     defer-datasource-initialization: true
+
   sql:
     init:
-      mode: always
-  profiles:
-    active: local
-  thymeleaf:
-    cache: false
-  devtools:
-    livereload:
-      enabled: true
-    restart:
-      exclude: static/**,public/**
-      additional-exclude: custom-dir/**,another-dir/**
+      mode: never
+
+  h2:
+    console:
+      enabled: false
+
 logging:
   level:
     org:
       springframework:
-        security: DEBUG
+        security: info
