@@ -26,6 +26,9 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-
     - name: Run tests with Maven
       run: mvn test -B -Dspring.profiles.active=test
+      env:
+        JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
+        JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
+
