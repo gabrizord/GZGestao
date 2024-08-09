@@ -22,4 +22,4 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.VPS_PORT }}  # Padrão é 22, altere se necessário
         source: "./*"  # Envia todos os arquivos do diretório atual
-        target: "/home/deploy/gzgestao"  # Caminho de destino na VPS
+        target: "/home/deploy/gzgestao/"  # Caminho de destino na VPS
