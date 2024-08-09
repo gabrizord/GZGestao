@@ -23,6 +23,7 @@ jobs:
         port: ${{ secrets.VPS_PORT }}  # Padrão é 22, altere se necessário
         source: "./*"  # Envia todos os arquivos do diretório atual
         target: "/home/deploy/gzgestao"  # Caminho de destino na VPS
+        debug: true
 
     - name: Run deploy commands on VPS
       uses: appleboy/ssh-action@v1.0.3
