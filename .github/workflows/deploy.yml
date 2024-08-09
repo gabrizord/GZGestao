@@ -1,20 +1,17 @@
-name: Deploy to VPS
+name: Test SSH Command
 
 on:
   push:
     branches:
-      - master  # Branch que aciona o deploy
+      - master  # Branch que aciona o teste
 
 jobs:
-  deploy:
+  test-ssh-command:
     runs-on: ubuntu-latest
     environment: gzgestaoprod
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Upload files to VPS using rsync
+    - name: Run command on VPS
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.VPS_HOST }}
@@ -22,31 +19,4 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.VPS_PORT }}  # Padrão é 22, altere se necessário
         script: |
-          rsync -avz -e "ssh -p ${{ secrets.VPS_PORT }}" ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/deploy/gzgestao
-
-    - name: Run deploy commands on VPS
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secrets.VPS_PORT }}  # Padrão é 22, altere se necessário
-        script: |
-          export SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}
-          export SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}
-          export SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
-          export JWT_PUBLIC_KEY=${{ secrets.JWT_PUBLIC_KEY }}
-          export JWT_PRIVATE_KEY=${{ secrets.JWT_PRIVATE_KEY }}
-          cd /home/deploy/gzgestao
-          docker-compose -f docker-compose.prod.yml down
-          docker-compose -f docker-compose.prod.yml up -d --build
-
-    - name: Clean up files on VPS
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secrets.VPS_PORT }}
-        script: |
-          rm -rf /home/deploy/gzgestao/*
+          echo "Testando conexão SSH e execução de comandos"
