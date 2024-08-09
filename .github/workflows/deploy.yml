@@ -22,7 +22,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.VPS_PORT }}  # Padrão é 22, altere se necessário
         script: |
-          rsync -avz -e "ssh -p ${{ secrets.VPS_PORT }}" ./ ${VPS_USER}@${VPS_HOST}:/home/deploy/gzgestao
+          rsync -avz -e "ssh -p ${{ secrets.VPS_PORT }}" ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/deploy/gzgestao
 
     - name: Run deploy commands on VPS
       uses: appleboy/ssh-action@v1.0.3
