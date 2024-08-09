@@ -11,6 +11,9 @@ jobs:
     environment: gzgestaoprod
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
     - name: Upload files to VPS using SCP
       uses: appleboy/scp-action@v0.1.7
       with:
