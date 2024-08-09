@@ -1,0 +1,25 @@
+name: Test SCP Upload
+
+on:
+  push:
+    branches:
+      - master  # Branch que aciona o teste
+
+jobs:
+  test-scp-upload:
+    runs-on: ubuntu-latest
+    environment: gzgestaoprod
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Upload files via SFTP
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      with:
+        server: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.VPS_PORT }}
+        local_path: './*'
+        remote_path: '/home/deploy/gzgestao'
