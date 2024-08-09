@@ -1,0 +1,51 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - master  # Branch que aciona o deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Upload files to VPS using SCP
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.VPS_PORT }}  # Padrão é 22, altere se necessário
+        source: "./*"  # Envia todos os arquivos do diretório atual
+        target: "/home/deploy/gzgestao"  # Caminho de destino na VPS
+
+    - name: Run deploy commands on VPS
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.VPS_PORT }}  # Padrão é 22, altere se necessário
+        script: |
+          export SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}
+          export SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}
+          export SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          export JWT_PUBLIC_KEY=${{ secrets.JWT_PUBLIC_KEY }}
+          export JWT_PRIVATE_KEY=${{ secrets.JWT_PRIVATE_KEY }}
+          cd /home/deploy/gzgestao
+          docker-compose -f docker-compose.prod.yml down
+          docker-compose -f docker-compose.prod.yml up -d --build
+
+    - name: Clean up files on VPS
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.VPS_PORT }}
+        script: |
+          rm -rf /home/deploy/gzgestao/*
