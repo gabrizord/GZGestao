@@ -1,3 +1,8 @@
+# Test profile configuration for GZGestao application.
+# - Activates the test profile and sets application name.
+# - Loads JWT keys from environment variables for testing.
+# - Sets logging level to DEBUG for Spring Security.
+
 spring:
   application:
     name: GZGestao

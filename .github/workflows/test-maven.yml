@@ -1,10 +1,6 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+# GitHub Actions Workflow: Unit Tests
+# - Runs on push or pull request to the master and dev branches.
+# - Sets up JDK 21 and runs unit tests using Maven with the test profile.
 
 name: Unit Tests
 

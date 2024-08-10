@@ -1,12 +1,21 @@
-# GZ Gestão de Manutenção e Preventivas
+<div align="center">
 
 [![CI Test](https://github.com/gabrizord/GZGestao/actions/workflows/test-maven.yml/badge.svg)](https://github.com/gabrizord/GZGestao/actions/workflows/test-maven.yml)
 [![build](https://github.com/gabrizord/GZGestao/actions/workflows/maven.yml/badge.svg)](https://github.com/gabrizord/GZGestao/actions/workflows/maven.yml)
+[![Build and Deploy to VPS](https://github.com/gabrizord/GZGestao/actions/workflows/deploy.yml/badge.svg)](https://github.com/gabrizord/GZGestao/actions/workflows/deploy.yml)
+</div>
+<div align="center">
 
-Este projeto é um sistema de gerenciamento de manutenção e preventivas, projetado para automatizar e facilitar a gestão de manutenções em empresas diversas. Inclui funcionalidades para autenticação de usuários, gestão de funcionários e empresas, solicitações de manutenção, e muito mais.
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+</div>
 
-## Funcionalidades
+# GZGestão - Manutenção e Preventivas
+Este projeto é um sistema de gerenciamento de manutenção e preventivas, projetado para automatizar e facilitar a gestão de manutenções em empresas diversas. 
+Inclui funcionalidades para autenticação de usuários, gestão de funcionários e empresas, solicitações de manutenção, e muito mais.
 
+# Funcionalidades
 - **Autenticação e Autorização**: Gerencie o acesso ao sistema com roles definidas para administradores e técnicos.
 - **Gestão de Colaboradores**: CRUD completo para gerenciamento de funcionários.
 - **Gestão de Empresas**: CRUD completo para gerenciamento de Empresas.
@@ -14,23 +23,15 @@ Este projeto é um sistema de gerenciamento de manutenção e preventivas, proje
 - **Relatórios e Dashboards**: Visualização de dados estatísticos e operacionais.
 - **Notificações**: Sistema de notificações para manter usuários informados sobre atualizações importantes.
 
-## Tecnologias Utilizadas
-
-- **Back-end**: Spring Boot
-- **Front-end**: Thymeleaf integrado ao Spring MVC
-- **Banco de Dados**: PostgreSQL
-
-### Pré-requisitos
-
-- Java JDK 17 ou superior
+# Pré-requisitos
+- Java JDK 21 ou superior
 - Maven 3.6 ou superior
 - PostgreSQL
 
-### Configuração
-
+# Configuração Inicial
 1. Clone o repositório:
    ```bash
-   git clone [URL do repositório]
+   git clone github.com/gabrizord/GZGestao.git
 
 2. Gere as chaves RSA para JWT:
    ```bash
@@ -50,12 +51,19 @@ Este projeto é um sistema de gerenciamento de manutenção e preventivas, proje
             -----BEGIN PRIVATE KEY-----
             MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQClKcMZ...-----END PRIVATE KEY-----
 
-4. Executando a Aplicação
-   Para iniciar a aplicação localmente com o perfil de desenvolvimento, certifique-se de que as variáveis de ambiente estão configuradas corretamente e execute:
+4. Configurando o banco de dados:
    ````bash
-   mvn spring-boot:run -Dspring-boot.run.profiles=dev
+   Certifique-se de que o PostgreSQL está instalado e rodando. 
+   Crie um banco de dados para a aplicação e configure as variáveis de ambiente necessárias no arquivo application-dev.yml ou no seu ambiente de desenvolvimento.
 
-5. Executando Testes
-   Para executar os testes, utilize o comando:
+5. Executando a Aplicação:
+   Para iniciar a aplicação localmente com o perfil de desenvolvimento, certifique-se de que as variáveis de ambiente estão configuradas corretamente.
+   Utilize o perfil `dev` do Maven ao executar o seguinte comando:
+   ```bash
+   mvn spring-boot:run -Pdev
+
+6. Executando Testes
+   Para executar os testes unitários e de integração utilizando o perfil de testes, utilize o seguinte comando:
+   **Atenção:** Certifique-se de que as chaves JWT (`JWT_PUBLIC_KEY` e `JWT_PRIVATE_KEY`) estejam corretamente configuradas nas variáveis de ambiente antes de executar a aplicação ou os testes.
    ````bash
    mvn test

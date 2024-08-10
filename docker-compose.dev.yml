@@ -1,3 +1,8 @@
+# Docker Compose file for setting up a Spring Boot application with PostgreSQL
+# - Defines two services: app (Spring Boot) and db (PostgreSQL)
+# - Configures resource limits and reservations for the app
+# - Uses a shared volume for persistent PostgreSQL data
+
 services:
   app:
     build: .
