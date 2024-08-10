@@ -2,7 +2,7 @@ spring:
   application:
     name: GZGestao
   profiles:
-    active: dev
+    active: test
 
 jwt:
   public:
