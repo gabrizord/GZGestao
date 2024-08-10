@@ -29,10 +29,12 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          platforms: linux/arm64
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/gzgestao:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/gzgestao:${{ github.sha }}
+
       - name: deploy file
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
@@ -42,3 +44,36 @@ jobs:
           local_path: './docker-compose.prod.yml'
           remote_path: '/home/deploy/gzgestao'
           sftpArgs: '-o ConnectTimeout=5'
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          envs: IMAGE_TAG
+          script: |
+            cd /home/deploy/gzgestao
+                            
+            # Autenticar no Docker Hub
+            echo ${{ secrets.DOCKERHUB_TOKEN }} | sudo docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+            
+            sudo docker compose -f docker-compose.prod.yml down --rmi all
+            
+            # Criar um arquivo .env com as variáveis de ambiente
+            echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/gzgestao:$IMAGE_TAG" > .env
+            echo "SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}" >> .env
+            echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> .env
+            echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> .env
+            echo "JWT_PUBLIC_KEY=\"${{ secrets.JWT_PUBLIC_KEY }}\"" >> .env
+            echo "JWT_PRIVATE_KEY=\"${{ secrets.JWT_PRIVATE_KEY }}\"" >> .env
+      
+            # Verificar o conteúdo do arquivo .env para confirmação
+            echo "Generated .env file:"
+            sudo cat .env
+
+            sudo docker compose -f docker-compose.prod.yml up -d
+            
