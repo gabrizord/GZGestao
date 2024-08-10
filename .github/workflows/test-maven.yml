@@ -6,13 +6,13 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: CI Test
+name: Unit Tests
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "master", "dev" ]
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "master", "dev" ]
 
 jobs:
   test:
