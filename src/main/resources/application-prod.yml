@@ -31,8 +31,8 @@ logging:
   level:
     org:
       springframework:
-        security: debug
-      hibernate: debug
+        security: info
+      hibernate: info
     com:
       zaxxer:
-        hikari: debug
+        hikari: info
