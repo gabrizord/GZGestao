@@ -20,8 +20,19 @@ spring:
     console:
       enabled: false
 
+  devtools:
+    add-properties: false
+    restart:
+      enabled: false
+
+
+
 logging:
   level:
     org:
       springframework:
-        security: trace
+        security: debug
+      hibernate: debug
+    com:
+      zaxxer:
+        hikari: debug
