@@ -1,14 +1,15 @@
-# Use uma imagem base do JDK 21
-FROM openjdk:21-jdk-slim
-
-# Define o diretório de trabalho dentro do contêiner
+# Estágio de build
+FROM maven:3.9.8-eclipse-temurin-21-jammy AS build
 WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn package -DskipTests
 
-# Copie os arquivos fonte do seu projeto para o diretório de trabalho
-COPY . .
-
-# Certifique-se de que o Maven Wrapper tenha permissões de execução
-RUN chmod +x mvnw
-
-# Execute a aplicação diretamente
-CMD ["./mvnw", "spring-boot:run"]
+# Estágio de execução
+FROM eclipse-temurin:21-jre-jammy
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+RUN useradd -m myuser
+USER myuser
+ENTRYPOINT ["java", "-jar", "app.jar"]

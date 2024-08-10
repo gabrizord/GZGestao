@@ -10,7 +10,7 @@ spring:
       ddl-auto: update
     show-sql: false
     open-in-view: false
-    defer-datasource-initialization: true
+    defer-datasource-initialization: false
 
   sql:
     init:
@@ -20,21 +20,13 @@ spring:
     console:
       enabled: false
 
-  devtools:
-    add-properties: false
-    livereload:
-      enabled: false
-    restart:
-      enabled: false
-
-
 
 logging:
   level:
     org:
       springframework:
         security: info
-      hibernate: debug
+      hibernate: info
     com:
       zaxxer:
         hikari: info

@@ -25,7 +25,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push to DockerHUB
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -35,7 +35,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/gzgestao:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/gzgestao:${{ github.sha }}
 
-      - name: deploy file
+      - name: Deploy docker compose file to VPS
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           username: ${{ secrets.VPS_USER }}
@@ -45,7 +45,7 @@ jobs:
           remote_path: '/home/deploy/gzgestao'
           sftpArgs: '-o ConnectTimeout=5'
 
-      - name: Deploy to VPS
+      - name: Starting Application
         uses: appleboy/ssh-action@v1.0.3
         env:
           IMAGE_TAG: ${{ github.sha }}
