@@ -1,3 +1,13 @@
+# Development configuration for the `dev` profile.
+# - Datasource: Configures the PostgreSQL connection.
+# - JPA: Sets Hibernate to auto-update schema and shows SQL in logs.
+# - SQL Init: Always runs SQL script on startup from the specified location.
+# - Thymeleaf: Disables caching for easier template updates.
+# - DevTools: Enables LiveReload and specifies directories to exclude from auto-restart.
+# - H2 Console: Disabled as it's not needed in development.
+#
+# Refer to the `.local.env` file for examples of environment variables used in these settings.
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/database

@@ -1,3 +1,12 @@
+# Production configuration for the `prod` profile.
+# - Datasource: Configures PostgreSQL connection using environment variables for security.
+# - JPA: Keeps the schema up to date without showing SQL logs; disables Open Session in View for performance.
+# - SQL Init: SQL initialization is disabled in production to prevent accidental data changes.
+# - H2 Console: Disabled as it is not needed in production.
+# - Logging: Sets INFO level logging for key frameworks to balance between detail and performance.
+
+# Ensure that the environment variables (DB_HOST, DB_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD) are properly set in the production environment.
+
 spring:
   datasource:
     url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
