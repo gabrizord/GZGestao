@@ -64,10 +64,10 @@ jobs:
             sudo docker compose -f docker-compose.prod.yml down --rmi all
             
             # Criar um arquivo .env com as variáveis de ambiente
-            echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/gzgestao:$IMAGE_TAG" > .env
-            echo "SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}" >> .env
-            echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> .env
-            echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> .env
+            echo "DOCKER_IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/gzgestao:$IMAGE_TAG" > .env
+            echo "SPRING_DATASOURCE_URL="${{ secrets.SPRING_DATASOURCE_URL }}" >> .env
+            echo "SPRING_DATASOURCE_USERNAME="${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> .env
+            echo "SPRING_DATASOURCE_PASSWORD="${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> .env
             echo "JWT_PUBLIC_KEY=\"${{ secrets.JWT_PUBLIC_KEY }}\"" >> .env
             echo "JWT_PRIVATE_KEY=\"${{ secrets.JWT_PRIVATE_KEY }}\"" >> .env
       
