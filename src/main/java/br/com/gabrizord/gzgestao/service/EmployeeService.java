@@ -1,5 +1,6 @@
 package br.com.gabrizord.gzgestao.service;
 
+import br.com.gabrizord.gzgestao.dto.EmployeeDTO;
 import br.com.gabrizord.gzgestao.model.Employee;
 import br.com.gabrizord.gzgestao.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,9 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee saveEmployee(Employee employee) {
+    public Employee saveEmployee(EmployeeDTO employeeDTO) {
+        // Validação ou conversão adicional pode ser feita aqui
+        Employee employee = convertToEntity(employeeDTO);
         return employeeRepository.save(employee);
     }
 
@@ -30,5 +33,14 @@ public class EmployeeService {
 
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    private Employee convertToEntity(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        employee.setName(employeeDTO.getName());
+        employee.setPosition(employeeDTO.getPosition());
+        employee.setEmail(employeeDTO.getEmail());
+        employee.setPhoneNumber(employeeDTO.getPhoneNumber());
+        return employee;
     }
 }

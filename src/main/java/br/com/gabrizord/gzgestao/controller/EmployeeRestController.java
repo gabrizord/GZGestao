@@ -1,7 +1,10 @@
 package br.com.gabrizord.gzgestao.controller;
 
+import br.com.gabrizord.gzgestao.dto.EmployeeDTO;
 import br.com.gabrizord.gzgestao.model.Employee;
 import br.com.gabrizord.gzgestao.service.EmployeeService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +22,9 @@ public class EmployeeRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createOrUpdateEmployee(@RequestBody Employee employee) {
-        Employee savedEmployee = employeeService.saveEmployee(employee);
-        return ResponseEntity.ok(savedEmployee);
+    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
+        Employee createdEmployee = employeeService.saveEmployee(employeeDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdEmployee);
     }
 
     @GetMapping

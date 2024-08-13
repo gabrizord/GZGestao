@@ -6,10 +6,7 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "employees")
@@ -19,13 +16,17 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    @Column(unique = true)
+    private String name;
 
-    private String cargo;
+    @Column(length = 15)
+    private String position;
 
+    @Column(unique = true)
     private String email;
 
-    private String telefone;
+    @Column(length = 15)
+    private String phoneNumber;
 
     @OneToOne
     @JoinColumn(name = "user_id")
