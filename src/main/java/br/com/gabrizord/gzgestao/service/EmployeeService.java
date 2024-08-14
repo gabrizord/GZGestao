@@ -18,7 +18,19 @@ public class EmployeeService {
     }
 
     public Employee saveEmployee(EmployeeDTO employeeDTO) {
-        // Validação ou conversão adicional pode ser feita aqui
+        employeeRepository.findByName(employeeDTO.getName()).ifPresent(employee -> {
+            throw new IllegalArgumentException("Já existe um funcionário com este nome.");
+        });
+
+        employeeRepository.findByEmail(employeeDTO.getEmail()).ifPresent(employee -> {
+            throw new IllegalArgumentException("Já existe um funcionário com este e-mail.");
+        });
+
+        // Verificar se já existe um funcionário com o mesmo e-mail
+        if (employeeRepository.findByEmail(employeeDTO.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Já existe um funcionário com este e-mail.");
+        }
+
         Employee employee = convertToEntity(employeeDTO);
         return employeeRepository.save(employee);
     }

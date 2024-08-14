@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException e) {
-        logger.error("Validation error occurred: {}", e.getMessage(), e);
+        logger.info("Validation error occurred: {}", e.getMessage(), e);
         List<String> errors = e.getBindingResult().getFieldErrors().stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .toList();
@@ -33,15 +33,12 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now(),
                 errors
         );
-
-
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException e) {
-        logger.error("Entity not found: {}", e.getMessage(), e);
+        logger.info("Entity not found: {}", e.getMessage());
         ErrorResponse errorDetails = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
@@ -52,7 +49,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException e) {
-        logger.error("IllegalArgumentException occurred: {}", e.getMessage(), e);
+        logger.info("IllegalArgumentException occurred: {}", e.getMessage());
         ErrorResponse errorDetails = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 e.getMessage(),
@@ -63,7 +60,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
-        logger.error("Data integrity violation: {}", e.getMessage(), e);
+        logger.info("Data integrity violation: {}", e.getMessage());
         ErrorResponse errorDetails = new ErrorResponse(
                 HttpStatus.CONFLICT.value(),
                 "A data integrity violation occurred. This could be due to a duplicate key or a constraint violation.",
@@ -74,7 +71,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException e) {
-        logger.error("Access denied: {}", e.getMessage(), e);
+        logger.error("Access denied: {}", e.getMessage());
         ErrorResponse errorDetails = new ErrorResponse(
                 HttpStatus.FORBIDDEN.value(),
                 "Access denied. You don't have permission to perform this action.",
@@ -85,7 +82,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-        logger.error("Message not readable: {}", e.getMessage(), e);
+        logger.error("Message not readable: {}", e.getMessage());
         ErrorResponse errorDetails = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 "The request body is not readable. Please check your JSON syntax.",
@@ -96,7 +93,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
-        logger.error("Unexpected error occurred: {}", e.getMessage(), e);
+        logger.error("Unexpected error occurred: {}", e.getMessage());
         ErrorResponse errorDetails = new ErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "An unexpected error occurred",
