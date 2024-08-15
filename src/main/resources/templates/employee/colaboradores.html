@@ -2,35 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}" lang="pt-br">
 <head>
     <title>Colaboradores</title>
-    <link rel="stylesheet" th:href="@{protected/css/index-styles.css}">
+    <link rel="stylesheet" th:href="@{protected/css/employee-styles.css}">
 </head>
 <body>
 <main layout:fragment="content">
     <div class="container">
-        <h1 class="my-4">Lista de Colaboradores</h1>
-
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Posição</th>
-                <th>Email</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="employee : ${employees}">
-                <td th:text="${employee.id}">1</td>
-                <td th:text="${employee.name}">Nome do Colaborador</td>
-                <td th:text="${employee.position}">Posição</td>
-                <td th:text="${employee.email}">email@exemplo.com</td>
-                <td>
-                    <a th:href="@{/employees/{id}(id=${employee.id})}" class="btn btn-primary">Detalhes</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="table-responsive">
+            <h1 class="my-4">Lista de Colaboradores</h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Posição</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.id}">1</td>
+                    <td th:text="${employee.name}">Nome do Colaborador</td>
+                    <td th:text="${employee.position}">Posição</td>
+                    <td th:text="${employee.email}">email@exemplo.com</td>
+                    <td>
+                        <a th:href="@{/employees/{id}(id=${employee.id})}" class="btn btn-primary">Detalhes</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
     </div>
 </main>
 </body>
