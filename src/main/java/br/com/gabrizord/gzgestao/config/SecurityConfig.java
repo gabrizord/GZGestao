@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/error").permitAll()
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/protected/**").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/employees").authenticated()
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login")
                         .failureUrl("/login?error=true")

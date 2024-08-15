@@ -40,6 +40,9 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Employee employee;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.getRoles().stream()
