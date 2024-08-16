@@ -1,3 +1,10 @@
+/* Responsividade para botões de ação */
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
 .table-responsive {
     display: block;
     width: 100%;
@@ -9,4 +16,24 @@
 .table-responsive > .table {
     margin-bottom: 0;
     white-space: nowrap;
+}
+
+/* Ajustar o tamanho dos botões para ícones */
+.table td .btn {
+    padding: 0.25rem 0.5rem; /* Ajuste para manter os botões compactos */
+    margin-right: 0.5rem; /* Espaçamento entre botões */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Remover margem do último botão */
+.table td .btn:last-child {
+    margin-right: 0;
+}
+
+/* Tamanho dos ícones do Boxicons */
+.table td .btn i {
+    font-size: 1.2rem; /* Ajuste o tamanho do ícone para se adequar ao design */
+    line-height: 1; /* Certifique-se de que a altura da linha seja adequada */
 }
