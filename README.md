@@ -3,6 +3,7 @@
 [![CI Test](https://github.com/gabrizord/GZGestao/actions/workflows/test-maven.yml/badge.svg)](https://github.com/gabrizord/GZGestao/actions/workflows/test-maven.yml)
 [![build](https://github.com/gabrizord/GZGestao/actions/workflows/maven.yml/badge.svg)](https://github.com/gabrizord/GZGestao/actions/workflows/maven.yml)
 [![Build and Deploy to VPS](https://github.com/gabrizord/GZGestao/actions/workflows/deploy.yml/badge.svg)](https://github.com/gabrizord/GZGestao/actions/workflows/deploy.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gabrizord_GZGestao&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gabrizord_GZGestao)
 </div>
 <div align="center">
 
