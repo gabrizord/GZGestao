@@ -44,11 +44,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/error").permitAll()
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/protected/**").authenticated()
-                        .requestMatchers(HttpMethod.GET,"/employees").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/error").permitAll()
+                        .requestMatchers("/api/employee/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login")
                         .failureUrl("/login?error=true")

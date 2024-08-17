@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="pt-br">
+<head>
+    <title>Modal Register</title>
+</head>
+<body>
+<div class="modal fade" id="registerEmployeeModal" tabindex="-1" aria-labelledby="registerEmployeeModalLabel" aria-hidden="true" layout:fragment="modal-register">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerEmployeeModalLabel">Cadastrar Colaborador</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="registerEmployeeForm">
+                    <div class="mb-3">
+                        <label for="employeeName" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="employeeName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="employeeEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="employeeEmail" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="employeePosition" class="form-label">Cargo</label>
+                        <input type="text" class="form-control" id="employeePosition" name="position" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="employeePhone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" id="employeePhone" name="phoneNumber" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
