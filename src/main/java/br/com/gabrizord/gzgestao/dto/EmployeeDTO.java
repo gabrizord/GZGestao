@@ -26,6 +26,6 @@ public class EmployeeDTO {
     private String email;
 
     @NotBlank(message = "Telefone é obrigatório")
-    @Size(max = 15, message = "Telefone não pode ter mais de 15 caracteres")
+    @Size(max = 11, message = "Telefone não pode ter mais de 11 caracteres")
     private String phoneNumber;
 }
