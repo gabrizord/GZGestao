@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#registerEmployeeForm').on('submit', function(event) {
         event.preventDefault();
-        var formData = {};
+        const formData = {};
         $(this).serializeArray().forEach(function(item) {
             formData[item.name] = item.value;
         });
@@ -11,6 +11,11 @@ $(document).ready(function() {
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(formData),
+            beforeSend: function(xhr) {
+                // Use o nome correto do parâmetro CSRF
+                let token = $('input[name="_csrf"]').val();
+                xhr.setRequestHeader('X-CSRF-TOKEN', token);
+            },
             success: function(response) {
                 alert('Colaborador cadastrado com sucesso!');
                 $('#registerEmployeeModal').modal('hide');

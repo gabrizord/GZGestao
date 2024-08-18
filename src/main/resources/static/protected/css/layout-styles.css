@@ -7,13 +7,13 @@
     --normal-font-size: 1rem;
 
     /* Cores Primárias */
-    --primary-color: #2F3C4E;
+    --primary-color: #001f54;
     --primary-color-light: #293240;
     --primary-color-dark: #000B53;
 
     /* Cores Secundárias */
     --secondary-color: #CAF0F8;
-    --secondary-color-light: #F2F3F5;
+    --secondary-color-light: #D1D2D4;
     --secondary-color-dark: #90E0EF;
 
     /* Cores Neutras */
@@ -136,6 +136,8 @@ a {
     color: var(--light-gray-color);
     margin-bottom: 1.5rem;
     transition: 0.3s;
+    border: none;
+    background: none;
 }
 
 .nav_link:hover {
