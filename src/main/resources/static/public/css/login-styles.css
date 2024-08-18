@@ -1,5 +1,44 @@
-.bg-teal { background-color: #16a085; }
-.btn-teal { background-color: #16a085; color: #fff; }
-.btn-teal:hover { background-color: #12876f; }
-.text-teal { color: #16a085; }
-.text-teal a:hover { text-decoration: underline; }
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+
+:root {
+    --primary-color: #001f54;
+    --primary-hover: #2772FB;
+    --text-color: #fff;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.bg-teal {
+    background-color: var(--primary-color);
+}
+
+.btn-teal {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease; /* Animação suave na transição */
+}
+
+.btn-teal:hover {
+    background-color: var(--primary-hover);
+}
+
+.card-header img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.card-header span {
+    font-weight: 500; /* Opcional: para dar destaque ao texto */
+}
