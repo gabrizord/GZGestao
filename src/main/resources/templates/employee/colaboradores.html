@@ -3,8 +3,8 @@
 <head>
     <title>Colaboradores</title>
     <link rel="stylesheet" th:href="@{protected/css/employee-styles.css}">
-    <script th:src="@{protected/js/employee-script.js}" defer></script>
-    <script th:src="@{protected/js/formatPhone-script.js}" defer></script>
+    <script th:src="@{protected/js/employee/employee-script.js}" defer></script>
+    <script th:src="@{protected/js/employee/formatPhone-script.js}" defer></script>
 </head>
 <body>
 <main layout:fragment="content">
@@ -38,15 +38,17 @@
                             <td th:text="${employee.email}"></td>
                             <td th:text="${employee.phoneNumber}"></td>
                             <td>
-                                <a th:href="@{/employees/{id}(id=${employee.id})}" class="btn btn-sm btn-info" title="Ver Detalhes">
+                                <!-- Not implemented yet -->
+                                <a href="#" class="btn btn-sm btn-info" title="Ver Detalhes">
                                     <i class='bx bx-show'></i>
                                 </a>
-                                <a th:href="@{/employees/edit/{id}(id=${employee.id})}" class="btn btn-sm btn-warning" title="Editar">
+                                <!-- Not implemented yet -->
+                                <a href="#" class="btn btn-sm btn-warning" title="Editar">
                                     <i class='bx bx-edit'></i>
                                 </a>
-                                <a th:href="@{/employees/delete/{id}(id=${employee.id})}" class="btn btn-sm btn-danger" title="Excluir">
+                                <button type="button" class="btn btn-sm btn-danger" title="Excluir">
                                     <i class='bx bx-trash'></i>
-                                </a>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -56,6 +58,7 @@
         </div>
     </div>
     <div layout:replace="~{employee/modal-register :: modal-register}"></div>
+    <div layout:replace="~{employee/modal-delete :: modal-delete}"></div>
 </main>
 </body>
 </html>
