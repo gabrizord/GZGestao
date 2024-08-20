@@ -6,7 +6,7 @@
 # - DevTools: Enables LiveReload and specifies directories to exclude from auto-restart.
 # - H2 Console: Disabled as it's not needed in development.
 #
-# Refer to the `.local.env` file for examples of environment variables used in these settings.
+# Refer to the `.docker-dev.env` file for examples of environment variables used in these settings.
 
 spring:
   datasource:

@@ -9,9 +9,7 @@ services:
     container_name: springboot-app
     ports:
       - "8080:8080"
-    volumes:
-      - .:/app
-    env_file: "local.env"
+    env_file: "docker-dev.env"
     deploy:
       resources:
         limits:
@@ -27,7 +25,7 @@ services:
     image: postgres:latest
     container_name: postgres-db
     env_file:
-      - local.env
+      - docker-dev.env
     ports:
       - "5432:5432"
     volumes:

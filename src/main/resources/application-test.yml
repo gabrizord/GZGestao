@@ -5,7 +5,7 @@
 # - JWT: Loads public and private keys for JWT. Note: For tests to work correctly, these keys need to be hardcoded in this file or provided via test-specific environment variables.
 # - Logging: Sets DEBUG level logging for Spring Security to aid in testing.
 
-# Refer to the `.local.env` file for examples of environment variables like JWT_PUBLIC_KEY and JWT_PRIVATE_KEY.
+# Refer to the `.docker-dev.env` file for examples of environment variables like JWT_PUBLIC_KEY and JWT_PRIVATE_KEY.
 
 spring:
   datasource:
