@@ -40,6 +40,10 @@ public class EmployeeService {
     }
 
     public Optional<Employee> getEmployeeById(Long id) {
+        // Verificar se o funcionário existe
+        if (!employeeRepository.existsById(id)) {
+            throw new IllegalArgumentException("Colaborador não encontrado.");
+        }
         return employeeRepository.findById(id);
     }
 

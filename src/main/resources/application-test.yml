@@ -20,10 +20,6 @@ spring:
     show-sql: true
     open-in-view: false
     defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:h2.sql
 
 #
 jwt:

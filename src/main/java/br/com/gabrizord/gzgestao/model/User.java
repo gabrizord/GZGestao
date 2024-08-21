@@ -7,7 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -33,20 +33,18 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "roles")
+    private List<String> roles;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Employee employee;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+        return roles.stream()
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
     }
 
