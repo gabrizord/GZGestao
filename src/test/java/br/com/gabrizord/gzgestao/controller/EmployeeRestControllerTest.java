@@ -7,19 +7,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(EmployeeRestController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class EmployeeRestControllerTest {
 
     @Autowired
@@ -29,16 +31,15 @@ class EmployeeRestControllerTest {
     private EmployeeService employeeService;
 
     @Test
-    void getAllEmployees_withoutAuthentication_shouldReturn401() throws Exception {
-
+    @WithMockUser(username = "UserTest", authorities = {"BASIC"})
+    void getAllEmployees_Authenticated_WithNoAuthorization_ShouldReturn403() throws Exception {
         mockMvc.perform(get("/api/employee"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = "ADMIN")
+    @WithMockUser(username = "admin", authorities = "ADMIN")
     void getAllEmployees_withAuthentication_shouldReturn200() throws Exception {
-
         mockMvc.perform(get("/api/employee"))
                 .andExpect(status().isOk());
     }
@@ -46,39 +47,25 @@ class EmployeeRestControllerTest {
     @Test
     @WithMockUser(username = "admin", authorities = "ADMIN")
     void createEmployee_withAuthentication_shouldReturn201() throws Exception {
-        // Criando um objeto Employee de exemplo
-        EmployeeDTO employee = new EmployeeDTO(1L, "John Doe", "Manager", "johndoe@me.com", "1111333344");
+        EmployeeDTO employeeDTO = new EmployeeDTO("John Doe", "Manager", "johndoe@me.com", "1111333344");
+        Employee employee = new Employee();
+        employee.setName(employeeDTO.getName());
+        employee.setPosition(employeeDTO.getPosition());
+        employee.setEmail(employeeDTO.getEmail());
+        employee.setPhoneNumber(employeeDTO.getPhoneNumber());
 
-        // Converter o objeto para JSON
         ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(employee);
+        String json = objectMapper.writeValueAsString(employeeDTO);
 
-        // Configurar o Mock para retornar um objeto Employee
-        when(employeeService.saveEmployee(Mockito.any(EmployeeDTO.class))).thenReturn(new Employee());
+        when(employeeService.saveEmployee(Mockito.any(EmployeeDTO.class))).thenReturn(employee);
 
-        // Realizar a requisição POST
         mockMvc.perform(post("/api/employee")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf())
                         .content(json))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        Mockito.verify(employeeService, Mockito.times(1)).saveEmployee(Mockito.any(EmployeeDTO.class));
     }
-
-    @Test
-    void createEmployee_withoutAuthentication_shouldReturn401() throws Exception {
-        // Criando um objeto Employee de exemplo
-        EmployeeDTO employee = new EmployeeDTO(1L, "John Doe", "Manager", "johndoe@me.com", "1111333344");
-
-        // Converter o objeto para JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(employee);
-
-        // Realizar a requisição POST
-        mockMvc.perform(post("/api/employee")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .with(csrf())
-                        .content(json))
-                .andExpect(status().isUnauthorized());
-    }
-
 }

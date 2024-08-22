@@ -16,16 +16,16 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(length = 50, unique = true)
     private String name;
 
-    @Column(length = 15)
+    @Column(length = 20)
     private String position;
 
-    @Column(unique = true)
+    @Column(length = 50, unique = true)
     private String email;
 
-    @Column(length = 15)
+    @Column(length = 11)
     private String phoneNumber;
 
     @OneToOne

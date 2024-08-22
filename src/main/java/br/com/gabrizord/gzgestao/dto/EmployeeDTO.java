@@ -13,11 +13,11 @@ public class EmployeeDTO {
     private Long id;
 
     @NotBlank(message = "Nome é obrigatório")
-    @Size(max = 255, message = "Nome não pode ter mais de 255 caracteres")
+    @Size(max = 50, message = "Nome não pode ter mais de 50 caracteres")
     private String name;
 
     @NotBlank(message = "Cargo é obrigatório")
-    @Size(max = 255, message = "Cargo não pode ter mais de 255 caracteres")
+    @Size(max = 20, message = "Cargo não pode ter mais de 20 caracteres")
     private String position;
 
     @NotBlank(message = "Email é obrigatório")
@@ -28,4 +28,11 @@ public class EmployeeDTO {
     @NotBlank(message = "Telefone é obrigatório")
     @Size(max = 11, message = "Telefone não pode ter mais de 11 caracteres")
     private String phoneNumber;
+
+    public EmployeeDTO(String name, String position, String email, String phoneNumber) {
+        this.name = name;
+        this.position = position;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
 }

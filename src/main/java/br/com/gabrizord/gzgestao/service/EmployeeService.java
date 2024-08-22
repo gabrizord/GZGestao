@@ -26,11 +26,6 @@ public class EmployeeService {
             throw new IllegalArgumentException("Já existe um funcionário com este e-mail.");
         });
 
-        // Verificar se já existe um funcionário com o mesmo e-mail
-        if (employeeRepository.findByEmail(employeeDTO.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("Já existe um funcionário com este e-mail.");
-        }
-
         Employee employee = convertToEntity(employeeDTO);
         return employeeRepository.save(employee);
     }
@@ -40,7 +35,6 @@ public class EmployeeService {
     }
 
     public Optional<Employee> getEmployeeById(Long id) {
-        // Verificar se o funcionário existe
         if (!employeeRepository.existsById(id)) {
             throw new IllegalArgumentException("Colaborador não encontrado.");
         }
@@ -51,7 +45,7 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-    private Employee convertToEntity(EmployeeDTO employeeDTO) {
+    public Employee convertToEntity(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         employee.setName(employeeDTO.getName());
         employee.setPosition(employeeDTO.getPosition());

@@ -4,6 +4,7 @@ import br.com.gabrizord.gzgestao.enums.RoleName;
 import br.com.gabrizord.gzgestao.model.User;
 import br.com.gabrizord.gzgestao.repository.UserAuthRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
+@Profile("test")
 public class DataLoader implements CommandLineRunner {
 
     private final UserAuthRepository userRepository;
