@@ -28,11 +28,4 @@ public class EmployeeDTO {
     @NotBlank(message = "Telefone é obrigatório")
     @Size(max = 11, message = "Telefone não pode ter mais de 11 caracteres")
     private String phoneNumber;
-
-    public EmployeeDTO(String name, String position, String email, String phoneNumber) {
-        this.name = name;
-        this.position = position;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-    }
 }

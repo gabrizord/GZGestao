@@ -47,7 +47,7 @@ class EmployeeRestControllerTest {
     @Test
     @WithMockUser(username = "admin", authorities = "ADMIN")
     void createEmployee_withAuthentication_shouldReturn201() throws Exception {
-        EmployeeDTO employeeDTO = new EmployeeDTO("John Doe", "Manager", "johndoe@me.com", "1111333344");
+        EmployeeDTO employeeDTO = new EmployeeDTO(1L, "John Doe", "Manager", "johndoe@me.com", "51999996666");
         Employee employee = new Employee();
         employee.setName(employeeDTO.getName());
         employee.setPosition(employeeDTO.getPosition());
