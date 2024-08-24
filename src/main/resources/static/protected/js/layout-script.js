@@ -1,39 +1,52 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function() {
+    const CLASSES = {
+        SHOW: 'show',
+        BODY_PD: 'body-pd',
+        BODY_PD_HOVER: 'body-pd-hover',
+        ACTIVE: 'active',
+        BX_X: 'bx-x'
+    };
+
     const showNavbar = (toggleId, navId, bodyId, headerId) => {
-        const toggle = document.getElementById(toggleId),
-            nav = document.getElementById(navId),
-            bodypd = document.getElementById(bodyId),
-            headerpd = document.getElementById(headerId);
+        const toggle = document.getElementById(toggleId);
+        const nav = document.getElementById(navId);
+        const bodypd = document.getElementById(bodyId);
+        const headerpd = document.getElementById(headerId);
 
-        if(toggle && nav && bodypd && headerpd) {
+        if (toggle && nav && bodypd && headerpd) {
             toggle.addEventListener('click', () => {
-                nav.classList.toggle('show');
-                toggle.classList.toggle('bx-x');
+                const isNavVisible = nav.classList.contains(CLASSES.SHOW);
+                nav.classList.toggle(CLASSES.SHOW);
+                toggle.classList.toggle(CLASSES.BX_X);
 
-                if(nav.classList.contains('show')) {
-                    bodypd.classList.add('body-pd');
-                    headerpd.classList.add('body-pd');
-                    bodypd.classList.remove('body-pd-hover');
-                    headerpd.classList.remove('body-pd-hover');
+                if (isNavVisible) {
+                    // Se a navbar estava visível, estamos fechando
+                    bodypd.classList.remove(CLASSES.BODY_PD);
+                    headerpd.classList.remove(CLASSES.BODY_PD);
                 } else {
-                    bodypd.classList.remove('body-pd');
-                    headerpd.classList.remove('body-pd');
+                    // Se a navbar estava fechada, estamos abrindo
+                    bodypd.classList.add(CLASSES.BODY_PD);
+                    headerpd.classList.add(CLASSES.BODY_PD);
                 }
+
+                // Sempre remover a classe de hover ao clicar
+                bodypd.classList.remove(CLASSES.BODY_PD_HOVER);
+                headerpd.classList.remove(CLASSES.BODY_PD_HOVER);
             });
 
             nav.addEventListener('mouseenter', () => {
-                if (!toggle.classList.contains('bx-x')) {
-                    nav.classList.add('show');
-                    bodypd.classList.add('body-pd-hover');
-                    headerpd.classList.add('body-pd-hover');
+                if (!toggle.classList.contains(CLASSES.BX_X)) {
+                    nav.classList.add(CLASSES.SHOW);
+                    bodypd.classList.add(CLASSES.BODY_PD_HOVER);
+                    headerpd.classList.add(CLASSES.BODY_PD_HOVER);
                 }
             });
 
             nav.addEventListener('mouseleave', () => {
-                if (!toggle.classList.contains('bx-x')) {
-                    nav.classList.remove('show');
-                    bodypd.classList.remove('body-pd-hover');
-                    headerpd.classList.remove('body-pd-hover');
+                if (!toggle.classList.contains(CLASSES.BX_X)) {
+                    nav.classList.remove(CLASSES.SHOW);
+                    bodypd.classList.remove(CLASSES.BODY_PD_HOVER);
+                    headerpd.classList.remove(CLASSES.BODY_PD_HOVER);
                 }
             });
         }
@@ -41,13 +54,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
 
-    /* Código existente para ativar links */
     const linkColor = document.querySelectorAll('.nav_link');
 
     function colorLink() {
-        if(linkColor) {
-            linkColor.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
+        if (linkColor) {
+            linkColor.forEach(l => l.classList.remove(CLASSES.ACTIVE));
+            this.classList.add(CLASSES.ACTIVE);
         }
     }
 
@@ -56,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const currentPath = window.location.pathname;
     linkColor.forEach(l => {
         if (l.getAttribute('href') === currentPath) {
-            l.classList.add('active');
+            l.classList.add(CLASSES.ACTIVE);
         }
     });
 });
