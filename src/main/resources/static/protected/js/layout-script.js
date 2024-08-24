@@ -9,15 +9,39 @@ document.addEventListener("DOMContentLoaded", function(event) {
             toggle.addEventListener('click', () => {
                 nav.classList.toggle('show');
                 toggle.classList.toggle('bx-x');
-                bodypd.classList.toggle('body-pd');
-                headerpd.classList.toggle('body-pd');
+
+                if(nav.classList.contains('show')) {
+                    bodypd.classList.add('body-pd');
+                    headerpd.classList.add('body-pd');
+                    bodypd.classList.remove('body-pd-hover');
+                    headerpd.classList.remove('body-pd-hover');
+                } else {
+                    bodypd.classList.remove('body-pd');
+                    headerpd.classList.remove('body-pd');
+                }
+            });
+
+            nav.addEventListener('mouseenter', () => {
+                if (!toggle.classList.contains('bx-x')) {
+                    nav.classList.add('show');
+                    bodypd.classList.add('body-pd-hover');
+                    headerpd.classList.add('body-pd-hover');
+                }
+            });
+
+            nav.addEventListener('mouseleave', () => {
+                if (!toggle.classList.contains('bx-x')) {
+                    nav.classList.remove('show');
+                    bodypd.classList.remove('body-pd-hover');
+                    headerpd.classList.remove('body-pd-hover');
+                }
             });
         }
     };
 
     showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
 
-    /*===== LINK ACTIVE =====*/
+    /* Código existente para ativar links */
     const linkColor = document.querySelectorAll('.nav_link');
 
     function colorLink() {
@@ -29,10 +53,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     linkColor.forEach(l => l.addEventListener('click', colorLink));
 
-    // Adiciona a classe active ao link correspondente com base na URL atual
     const currentPath = window.location.pathname;
     linkColor.forEach(l => {
-        // Verifica se o href do link termina com o caminho atual
         if (l.getAttribute('href') === currentPath) {
             l.classList.add('active');
         }

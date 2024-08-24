@@ -90,6 +90,7 @@ main {
 main .col {
     padding-top: 1rem;
 }
+
 /* === Navbar Styles === */
 .l-navbar {
     position: fixed;
@@ -176,6 +177,7 @@ main .col {
 .footer-custom {
     /* future improvements */
 }
+
 /* === Media Queries === */
 @media screen and (min-width: 768px) {
     body {
@@ -201,6 +203,12 @@ main .col {
         width: calc(var(--nav-width) + 156px);
     }
     .body-pd {
+        padding-left: calc(var(--nav-width) + 188px);
+    }
+    .l-navbar:hover {
+        width: calc(var(--nav-width) + 156px);
+    }
+    .body-pd-hover {
         padding-left: calc(var(--nav-width) + 188px);
     }
 }
