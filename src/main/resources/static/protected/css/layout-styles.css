@@ -7,23 +7,17 @@
     --normal-font-size: 1rem;
 
     /* Cores Primárias */
-    --primary-color: #171717;
-    --primary-color-light: #293240;
-    --primary-color-dark: #000B53;
-
-    /* Cores Secundárias */
-    --secondary-color: #CAF0F8;
-    --secondary-color-light: #212121;
-    --secondary-color-dark: #90E0EF;
+    --primary-color: #171717; /* Fundo principal */
+    --primary-color-light: #212121; /* Elementos de contraste leve */
+    --primary-color-lighter: #2A2A2A; /* Nuances em componentes */
 
     /* Cores Neutras */
-    --white-color: #ffffff;
-    --white-font: #ECECEC;
-    --light-gray-color: #f8f9fa;
-    --dark-gray-color: #6c757d;
+    --neutral-color-light: #ECECEC; /* Textos claros */
+    --neutral-color-dark: #6C757D; /* Bordas e divisores */
+    --white-color: #FFFFFF;
 
     /* Background */
-    --background-color: var(--secondary-color-light);
+    --background-color: var(--primary-color-light);
 
     /* Outros */
     --header-height: 3rem;
@@ -63,13 +57,13 @@ a {
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color-light);
     z-index: var(--z-fixed);
     transition: 0.5s;
 }
 
 .header_toggle {
-    color: var(--white-color);
+    color: var(--neutral-color-light);
     font-size: 1.5rem;
     cursor: pointer;
 }
@@ -90,7 +84,7 @@ a {
 
 /* === Main Styles === */
 main {
-    color: var(--white-font);
+    color: var(--neutral-color-light);
 }
 
 main .col {
@@ -142,7 +136,7 @@ main .col {
 
 .nav_link {
     position: relative;
-    color: var(--light-gray-color);
+    color: var(--white-color);
     margin-bottom: 1.5rem;
     transition: 0.3s;
     border: none;
