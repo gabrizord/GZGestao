@@ -7,18 +7,19 @@
     --normal-font-size: 1rem;
 
     /* Cores Primárias */
-    --primary-color: #001f54;
+    --primary-color: #171717;
     --primary-color-light: #293240;
     --primary-color-dark: #000B53;
 
     /* Cores Secundárias */
     --secondary-color: #CAF0F8;
-    --secondary-color-light: #D1D2D4;
+    --secondary-color-light: #212121;
     --secondary-color-dark: #90E0EF;
 
     /* Cores Neutras */
     --white-color: #ffffff;
-    --light-gray-color: #f7f6f1;
+    --white-font: #ECECEC;
+    --light-gray-color: #f8f9fa;
     --dark-gray-color: #6c757d;
 
     /* Background */
@@ -87,6 +88,14 @@ a {
     height: 30px;
 }
 
+/* === Main Styles === */
+main {
+    color: var(--white-font);
+}
+
+main .col {
+    padding-top: 1rem;
+}
 /* === Navbar Styles === */
 .l-navbar {
     position: fixed;
@@ -169,11 +178,10 @@ a {
     background-color: var(--white-color);
 }
 
-/* === Navbar Styles === */
+/* === Footer Styles === */
 .footer-custom {
     /* future improvements */
 }
-
 /* === Media Queries === */
 @media screen and (min-width: 768px) {
     body {
