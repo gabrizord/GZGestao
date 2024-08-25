@@ -3,6 +3,9 @@ package br.com.gabrizord.gzgestao.service;
 import br.com.gabrizord.gzgestao.dto.EmployeeDTO;
 import br.com.gabrizord.gzgestao.model.Employee;
 import br.com.gabrizord.gzgestao.repository.EmployeeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,6 +46,11 @@ public class EmployeeService {
 
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    public Page<Employee> getPaginatedEmployees(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return employeeRepository.findAll(pageable);
     }
 
     public Employee convertToEntity(EmployeeDTO employeeDTO) {

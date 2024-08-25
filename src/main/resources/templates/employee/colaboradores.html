@@ -11,15 +11,14 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col">
+                <h1>Lista de Colaboradores</h1>
+
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#registerEmployeeModal">
+                    Cadastrar Novo Colaborador
+                </button>
                 <div class="table-responsive">
-                    <h1>Lista de Colaboradores</h1>
-
-                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#registerEmployeeModal">
-                        Cadastrar Novo Colaborador
-                    </button>
-
                     <table class="table table-secondary table-striped table-hover rounded overflow-hidden">
-                        <caption class="sr-only">Lista de colaboradores e suas respectivas ações</caption>
+                        <caption class="sr-only text-white">Lista de colaboradores e suas respectivas ações</caption>
                         <thead class="table-dark">
                         <tr>
                             <th scope="col">ID</th>
@@ -31,18 +30,16 @@
                         </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                        <tr th:each="employee : ${employees}">
+                        <tr th:each="employee : ${employeePage.content}">
                             <td th:text="${employee.id}"></td>
                             <td th:text="${employee.name}"></td>
                             <td th:text="${employee.position}"></td>
                             <td th:text="${employee.email}"></td>
                             <td th:text="${employee.phoneNumber}"></td>
                             <td>
-                                <!-- Not implemented yet -->
                                 <a href="#" class="btn btn-sm btn-info" title="Ver Detalhes">
                                     <i class='bx bx-show'></i>
                                 </a>
-                                <!-- Not implemented yet -->
                                 <a href="#" class="btn btn-sm btn-warning" title="Editar">
                                     <i class='bx bx-edit'></i>
                                 </a>
@@ -53,6 +50,26 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
+                <div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                <a class="page-link" th:href="@{/employees(page=${currentPage - 1}, size=${employeePage.size})}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                th:classappend="${i == currentPage} ? 'active'">
+                                <a class="page-link" th:href="@{/employees(page=${i}, size=${employeePage.size})}" th:text="${i + 1}">1</a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                                <a class="page-link" th:href="@{/employees(page=${currentPage + 1}, size=${employeePage.size})}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
