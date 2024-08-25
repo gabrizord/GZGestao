@@ -21,15 +21,21 @@ public class EmployeeController {
     public String viewEmployees(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "12") int size,
+            @RequestParam(defaultValue = "name") String sortField,
+            @RequestParam(defaultValue = "asc") String sortDirection,
             Model model) {
 
-        Page<Employee> employeePage = employeeService.getPaginatedEmployees(page, size);
+        Page<Employee> employeePage = employeeService.getPaginatedEmployees(page, size, sortField, sortDirection);
         model.addAttribute("employeePage", employeePage);
 
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", employeePage.getTotalPages());
         model.addAttribute("totalItems", employeePage.getTotalElements());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
 
         return "employee/colaboradores";
     }
+
 }

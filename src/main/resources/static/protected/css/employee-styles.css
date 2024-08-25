@@ -24,6 +24,22 @@
     vertical-align: middle;
 }
 
+.table-dark a {
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+.table-dark a:hover {
+    color: #f8f9fa;
+    text-decoration: underline;
+}
+
+.sort-icon {
+    font-size: 0.8rem;
+    margin-left: 5px;
+    color: #f8f9fa;
+}
+
 /* Table Column Widths */
 .table th:nth-child(1), .table td:nth-child(1) { width: 5%; }
 .table th:nth-child(2), .table td:nth-child(2) { width: 20%; }

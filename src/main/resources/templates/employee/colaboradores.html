@@ -22,8 +22,20 @@
                         <thead class="table-dark">
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Posição</th>
+                            <th scope="col">
+                                <a th:href="@{/employees(page=0, size=${employeePage.size}, sortField='name', sortDirection=${reverseSortDirection})}">
+                                    Nome
+                                    <i th:class="${sortField == 'name' and sortDirection == 'asc'} ? 'bx bxs-up-arrow sort-icon' : ''"></i>
+                                    <i th:class="${sortField == 'name' and sortDirection == 'desc'} ? 'bx bxs-down-arrow sort-icon' : ''"></i>
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a th:href="@{/employees(page=0, size=${employeePage.size}, sortField='position', sortDirection=${reverseSortDirection})}">
+                                    Posição
+                                    <i th:class="${sortField == 'position' and sortDirection == 'asc'} ? 'bx bxs-up-arrow sort-icon' : ''"></i>
+                                    <i th:class="${sortField == 'position' and sortDirection == 'desc'} ? 'bx bxs-down-arrow sort-icon' : ''"></i>
+                                </a>
+                            </th>
                             <th scope="col">Email</th>
                             <th scope="col">Telefone</th>
                             <th scope="col">Ações</th>
@@ -35,7 +47,7 @@
                             <td th:text="${employee.name}"></td>
                             <td th:text="${employee.position}"></td>
                             <td th:text="${employee.email}"></td>
-                            <td th:text="${employee.phoneNumber}"></td>
+                            <td th:text="'(' + ${employee.phoneNumber.substring(0, 2)} + ') ' + ${employee.phoneNumber.substring(2, 7)} + '-' + ${employee.phoneNumber.substring(7)}"></td>
                             <td>
                                 <a href="#" class="btn btn-sm btn-info" title="Ver Detalhes">
                                     <i class='bx bx-show'></i>
@@ -55,16 +67,16 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
                             <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                                <a class="page-link" th:href="@{/employees(page=${currentPage - 1}, size=${employeePage.size})}" aria-label="Previous">
+                                <a class="page-link" th:href="@{/employees(page=${currentPage - 1}, size=${employeePage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                             <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
                                 th:classappend="${i == currentPage} ? 'active'">
-                                <a class="page-link" th:href="@{/employees(page=${i}, size=${employeePage.size})}" th:text="${i + 1}">1</a>
+                                <a class="page-link" th:href="@{/employees(page=${i}, size=${employeePage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" th:text="${i + 1}">1</a>
                             </li>
                             <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-                                <a class="page-link" th:href="@{/employees(page=${currentPage + 1}, size=${employeePage.size})}" aria-label="Next">
+                                <a class="page-link" th:href="@{/employees(page=${currentPage + 1}, size=${employeePage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
