@@ -8,9 +8,5 @@
   },
   "scripts": {
     "build": "echo 'Building...'"
-  },
-  "devDependencies": {
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "rollup": "^4.21.1"
   }
 }
