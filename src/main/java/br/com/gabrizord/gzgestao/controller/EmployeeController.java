@@ -35,7 +35,7 @@ public class EmployeeController {
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
 
-        return "employee/colaboradores";
+        return "employee/employee";
     }
 
 }

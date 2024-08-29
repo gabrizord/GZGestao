@@ -99,3 +99,22 @@
 .pagination .page-item {
     margin: 0 2px;
 }
+
+/* Modal Styles */
+.modal-content {
+    background-color: var(--primary-color-lighter);
+    color: var(--neutral-color-light);
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--neutral-color-dark);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--neutral-color-dark);
+}
+
+.btn-close {
+    filter: invert(1);
+}
