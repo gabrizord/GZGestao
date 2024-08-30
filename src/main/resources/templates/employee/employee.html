@@ -23,7 +23,7 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">
-                                <a th:href="@{/emp  loyees(page=0, size=${employeePage.size}, sortField='name', sortDirection=${reverseSortDirection})}">
+                                <a th:href="@{/employees(page=0, size=${employeePage.size}, sortField='name', sortDirection=${reverseSortDirection})}">
                                     Nome
                                     <i th:class="${sortField == 'name' and sortDirection == 'asc'} ? 'bx bxs-up-arrow sort-icon' : ''"></i>
                                     <i th:class="${sortField == 'name' and sortDirection == 'desc'} ? 'bx bxs-down-arrow sort-icon' : ''"></i>
