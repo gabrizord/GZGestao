@@ -1,5 +1,6 @@
 package br.com.gabrizord.gzgestao.dto;
 
+import br.com.gabrizord.gzgestao.model.Company;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -63,4 +64,23 @@ public class CompanyDTO {
     @Email(message = "Email deve ser um endereço de e-mail válido")
     @Size(max = 100, message = "Email não pode ter mais de 100 caracteres")
     private String email;
+
+    public Company convertToEntity() {
+        Company company = new Company();
+        company.setRazaoSocial(razaoSocial);
+        company.setNomeFantasia(nomeFantasia);
+        company.setCnpj(cnpj);
+        company.setInscricaoEstadual(inscricaoEstadual);
+        company.setStreet(street);
+        company.setNumber(number);
+        company.setNeighborhood(neighborhood);
+        company.setCity(city);
+        company.setState(state);
+        company.setPostalCode(postalCode);
+        company.setStateRegistrationIndicator(stateRegistrationIndicator);
+        company.setMunicipalityCode(municipalityCode);
+        company.setPhone(phone);
+        company.setEmail(email);
+        return company;
+    }
 }

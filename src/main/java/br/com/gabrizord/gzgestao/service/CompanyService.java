@@ -1,0 +1,29 @@
+package br.com.gabrizord.gzgestao.service;
+
+import br.com.gabrizord.gzgestao.dto.CompanyDTO;
+import br.com.gabrizord.gzgestao.model.Company;
+import br.com.gabrizord.gzgestao.repository.CompanyRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CompanyService {
+
+    CompanyRepository companyRepository;
+
+    public CompanyService(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
+    }
+
+    public Company saveCompany(CompanyDTO companyDTO) {
+        companyRepository.findByCnpj(companyDTO.getCnpj()).ifPresent(company -> {
+            throw new IllegalArgumentException("Já existe uma empresa com este CNPJ.");
+        });
+        return companyRepository.save(companyDTO.convertToEntity());
+    }
+
+    public List<Company> getAllCompanies() {
+        return companyRepository.findAll();
+    }
+}
