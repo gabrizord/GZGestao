@@ -31,4 +31,15 @@ public class CompanyRestController {
         List<Company> companies = companyService.getAllCompanies();
         return ResponseEntity.ok(companies);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable Long id) {
+        return ResponseEntity.ok(companyService.getCompanyById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCompany(@PathVariable Long id) {
+        companyService.deleteCompanyById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

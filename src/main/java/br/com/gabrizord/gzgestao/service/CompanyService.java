@@ -3,9 +3,13 @@ package br.com.gabrizord.gzgestao.service;
 import br.com.gabrizord.gzgestao.dto.CompanyDTO;
 import br.com.gabrizord.gzgestao.model.Company;
 import br.com.gabrizord.gzgestao.repository.CompanyRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompanyService {
@@ -17,13 +21,24 @@ public class CompanyService {
     }
 
     public Company saveCompany(CompanyDTO companyDTO) {
-        companyRepository.findByCnpj(companyDTO.getCnpj()).ifPresent(company -> {
-            throw new IllegalArgumentException("Já existe uma empresa com este CNPJ.");
-        });
+        companyRepository.findByCnpj(companyDTO.getCnpj())
+                .ifPresent(company -> {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe uma empresa com este CNPJ.");
+                });
         return companyRepository.save(companyDTO.convertToEntity());
     }
 
     public List<Company> getAllCompanies() {
         return companyRepository.findAll();
+    }
+
+    public Company getCompanyById(Long id) {
+        Optional<Company> company = companyRepository.findById(id);
+        return company.orElseThrow(() -> new EntityNotFoundException("Empresa não encontrada."));
+    }
+
+    public void deleteCompanyById(Long id) {
+       Company company = getCompanyById(id);
+       companyRepository.delete(company);
     }
 }
