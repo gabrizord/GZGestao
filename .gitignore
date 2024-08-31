@@ -31,3 +31,20 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## Node.js ##
+/node/
+
+# Ignorar a pasta node_modules que contém dependências npm
+/node_modules/
+
+# Ignorar arquivos de log do npm
+npm-debug.log*
+
+# Ignorar caches do npm
+/.npm
+/.cache
+
+# Ignorar arquivos de lock de dependências (opcional, mas geralmente versionados)
+/package-lock.json
+

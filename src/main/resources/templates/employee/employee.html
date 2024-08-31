@@ -3,8 +3,7 @@
 <head>
     <title>Colaboradores</title>
     <link rel="stylesheet" th:href="@{protected/css/employee-styles.css}">
-    <script th:src="@{protected/js/employee/employee-script.js}" defer></script>
-    <script th:src="@{protected/js/employee/formatPhone-script.js}" defer></script>
+    <script th:src="@{protected/js/employee-script.js}" defer></script>
 </head>
 <body>
 <main layout:fragment="content">
@@ -12,7 +11,6 @@
         <div class="row justify-content-center">
             <div class="col">
                 <h1>Lista de Colaboradores</h1>
-
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#registerEmployeeModal">
                     Cadastrar Novo Colaborador
                 </button>
@@ -23,7 +21,7 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">
-                                <a th:href="@{/emp  loyees(page=0, size=${employeePage.size}, sortField='name', sortDirection=${reverseSortDirection})}">
+                                <a th:href="@{/employees(page=0, size=${employeePage.size}, sortField='name', sortDirection=${reverseSortDirection})}">
                                     Nome
                                     <i th:class="${sortField == 'name' and sortDirection == 'asc'} ? 'bx bxs-up-arrow sort-icon' : ''"></i>
                                     <i th:class="${sortField == 'name' and sortDirection == 'desc'} ? 'bx bxs-down-arrow sort-icon' : ''"></i>
