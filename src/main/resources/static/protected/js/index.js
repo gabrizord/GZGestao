@@ -4,7 +4,7 @@ import '@popperjs/core'; // Popper.js para tooltips e popovers
 
 // Seus scripts customizados
 import './layout-script.js'; // Script para layout
-import './employee/employee-script.js'; // Script de funcionários
+import './employee-script.js'; // Script de funcionários
 import './employee/formatPhone-script.js'; // Outro script relacionado
 
 // Código adicional para inicializar sua aplicação
