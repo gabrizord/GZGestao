@@ -1,5 +1,5 @@
 /**
- * This script handles the registration and deletion of employees via AJAX requests.
+ * This script handles the registration and deletion of companies via AJAX requests.
  * It also formats the phone number input.
  */
 
@@ -11,16 +11,47 @@ $(document).ready(function() {
     const header = $('meta[name="_csrf_header"]').attr('content');
 
     /**
-     * Handle the form submission for registering a new employee.
+     * Handle the form submission for registering a new company.
      */
+    $('#registerCompanyForm').on('submit', function(event) {
+        event.preventDefault();
+        const formData = {};
+        $(this).serializeArray().forEach(function(item) {
+            formData[item.name] = item.value;
+        });
+
+        /**
+         * Send the form data to the API endpoint for registration.
+         */
+        $.ajax({
+            url: '/api/company', // Endpoint para cadastro de empresas
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            success: function() {
+                alert('Empresa cadastrada com sucesso!');
+                let myModal = bootstrap.Modal.getInstance(document.getElementById('registerCompanyModal'));
+                myModal.hide();
+                location.reload(); // Recarrega a página para refletir as alterações
+            },
+            error: function(xhr) {
+                console.error('Erro:', xhr.responseText);
+                alert('Ocorreu um erro ao cadastrar a empresa.');
+            }
+        });
+    });
+
 
     /**
-     * Store the ID of the employee to be deleted.
+     * Store the ID of the company to be deleted.
      */
     let companyIdToDelete = null;
 
     /**
-     * Handle the click event for deleting an employee.
+     * Handle the click event for deleting an company.
      */
     $('.btn-danger[title="Excluir"]').on('click', function() {
         const row = $(this).closest('tr');
@@ -37,12 +68,12 @@ $(document).ready(function() {
     });
 
     /**
-     * Handle the click event for confirming the deletion of an employee.
+     * Handle the click event for confirming the deletion of an company.
      */
     $('#confirmDeleteButton').on('click', function() {
         if (companyIdToDelete) {
             /**
-             * Send a DELETE request to the API endpoint for deleting the employee.
+             * Send a DELETE request to the API endpoint for deleting the company.
              */
             $.ajax({
                 url: `/api/company/${companyIdToDelete}`,
