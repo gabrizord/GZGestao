@@ -20,7 +20,13 @@
                         <thead class="table-dark">
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
+                            <th scope="col">
+                                <a th:href="@{/companies(page=0, size=${companyPage.size}, sortField='razaoSocial', sortDirection=${reverseSortDirection})}">
+                                    Nome
+                                    <i th:class="${sortField == 'razaoSocial' and sortDirection == 'asc'} ? 'bx bxs-up-arrow sort-icon' : ''"></i>
+                                    <i th:class="${sortField == 'razaoSocial' and sortDirection == 'desc'} ? 'bx bxs-down-arrow sort-icon' : ''"></i>
+                                </a>
+                            </th>
                             <th scope="col">CNPJ</th>
                             <th scope="col">Email</th>
                             <th scope="col">Telefone</th>
@@ -28,12 +34,26 @@
                         </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                        <tr th:each="company : ${companies}">
+                        <tr th:each="company : ${companyPage.content}">
                             <td th:text="${company.id}"></td>
                             <td th:text="${company.razaoSocial}"></td>
-                            <td th:text="${company.cnpj}"></td>
+                            <td th:text="${#strings.substring(company.cnpj, 0, 2) + '.' +
+                               #strings.substring(company.cnpj, 2, 5) + '.' +
+                               #strings.substring(company.cnpj, 5, 8) + '/' +
+                               #strings.substring(company.cnpj, 8, 12) + '-' +
+                               #strings.substring(company.cnpj, 12, 14)}">
+                            </td>
                             <td th:text="${company.email}"></td>
-                            <td th:text="${company.phoneNumber}"></td>
+                            <td th:if="${#strings.length(company.phoneNumber) == 10}"
+                                th:text="${'(' + #strings.substring(company.phoneNumber, 0, 2) + ') ' +
+                                    #strings.substring(company.phoneNumber, 2, 6) + '-' +
+                                    #strings.substring(company.phoneNumber, 6)}">
+                            </td>
+                            <td th:if="${#strings.length(company.phoneNumber) == 11}"
+                                th:text="${'(' + #strings.substring(company.phoneNumber, 0, 2) + ') ' +
+                                    #strings.substring(company.phoneNumber, 2, 7) + '-' +
+                                    #strings.substring(company.phoneNumber, 7)}">
+                            </td>
                             <td>
                                 <a href="#" class="btn btn-sm btn-info" title="Ver Detalhes">
                                     <i class='bx bx-show'></i>
@@ -48,6 +68,26 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
+                <div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                <a class="page-link" th:href="@{/companies(page=${currentPage - 1}, size=${companyPage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                th:classappend="${i == currentPage} ? 'active'">
+                                <a class="page-link" th:href="@{/companies(page=${i}, size=${companyPage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" th:text="${i + 1}">1</a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                                <a class="page-link" th:href="@{/companies(page=${currentPage + 1}, size=${companyPage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
