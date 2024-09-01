@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}" lang="pt-br">
 <head>
-    <title>Colaboradores</title>
+    <title>Organizações</title>
     <link rel="stylesheet" th:href="@{protected/css/tables-styles.css}">
     <script th:src="@{protected/js/form-utils.js}" defer></script>
-    <script th:src="@{protected/js/employee-script.js}" defer></script>
+    <script th:src="@{protected/js/company-script.js}" defer></script>
 </head>
 <body>
 <main layout:fragment="content">
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col">
-                <h1>Lista de Colaboradores</h1>
-                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#registerEmployeeModal">
-                    Cadastrar Novo Colaborador
+                <h1>Lista de Organizações</h1>
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#registerCompanyModal">
+                    Cadastrar Nova Organização
                 </button>
                 <div class="table-responsive">
                     <table class="table table-secondary table-striped table-hover rounded overflow-hidden">
@@ -22,31 +22,39 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">
-                                <a th:href="@{/employees(page=0, size=${employeePage.size}, sortField='name', sortDirection=${reverseSortDirection})}">
+                                <a th:href="@{/companies(page=0, size=${companyPage.size}, sortField='razaoSocial', sortDirection=${reverseSortDirection})}">
                                     Nome
-                                    <i th:class="${sortField == 'name' and sortDirection == 'asc'} ? 'bx bxs-up-arrow sort-icon' : ''"></i>
-                                    <i th:class="${sortField == 'name' and sortDirection == 'desc'} ? 'bx bxs-down-arrow sort-icon' : ''"></i>
+                                    <i th:class="${sortField == 'razaoSocial' and sortDirection == 'asc'} ? 'bx bxs-up-arrow sort-icon' : ''"></i>
+                                    <i th:class="${sortField == 'razaoSocial' and sortDirection == 'desc'} ? 'bx bxs-down-arrow sort-icon' : ''"></i>
                                 </a>
                             </th>
-                            <th scope="col">
-                                <a th:href="@{/employees(page=0, size=${employeePage.size}, sortField='position', sortDirection=${reverseSortDirection})}">
-                                    Posição
-                                    <i th:class="${sortField == 'position' and sortDirection == 'asc'} ? 'bx bxs-up-arrow sort-icon' : ''"></i>
-                                    <i th:class="${sortField == 'position' and sortDirection == 'desc'} ? 'bx bxs-down-arrow sort-icon' : ''"></i>
-                                </a>
-                            </th>
+                            <th scope="col">CNPJ</th>
                             <th scope="col">Email</th>
                             <th scope="col">Telefone</th>
                             <th scope="col">Ações</th>
                         </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                        <tr th:each="employee : ${employeePage.content}">
-                            <td th:text="${employee.id}"></td>
-                            <td th:text="${employee.name}"></td>
-                            <td th:text="${employee.position}"></td>
-                            <td th:text="${employee.email}"></td>
-                            <td th:text="'(' + ${employee.phoneNumber.substring(0, 2)} + ') ' + ${employee.phoneNumber.substring(2, 7)} + '-' + ${employee.phoneNumber.substring(7)}"></td>
+                        <tr th:each="company : ${companyPage.content}">
+                            <td th:text="${company.id}"></td>
+                            <td th:text="${company.razaoSocial}"></td>
+                            <td th:text="${#strings.substring(company.cnpj, 0, 2) + '.' +
+                               #strings.substring(company.cnpj, 2, 5) + '.' +
+                               #strings.substring(company.cnpj, 5, 8) + '/' +
+                               #strings.substring(company.cnpj, 8, 12) + '-' +
+                               #strings.substring(company.cnpj, 12, 14)}">
+                            </td>
+                            <td th:text="${company.email}"></td>
+                            <td th:if="${#strings.length(company.phoneNumber) == 10}"
+                                th:text="${'(' + #strings.substring(company.phoneNumber, 0, 2) + ') ' +
+                                    #strings.substring(company.phoneNumber, 2, 6) + '-' +
+                                    #strings.substring(company.phoneNumber, 6)}">
+                            </td>
+                            <td th:if="${#strings.length(company.phoneNumber) == 11}"
+                                th:text="${'(' + #strings.substring(company.phoneNumber, 0, 2) + ') ' +
+                                    #strings.substring(company.phoneNumber, 2, 7) + '-' +
+                                    #strings.substring(company.phoneNumber, 7)}">
+                            </td>
                             <td>
                                 <a href="#" class="btn btn-sm btn-info" title="Ver Detalhes">
                                     <i class='bx bx-show'></i>
@@ -66,16 +74,16 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
                             <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                                <a class="page-link" th:href="@{/employees(page=${currentPage - 1}, size=${employeePage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" aria-label="Previous">
+                                <a class="page-link" th:href="@{/companies(page=${currentPage - 1}, size=${companyPage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                             <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
                                 th:classappend="${i == currentPage} ? 'active'">
-                                <a class="page-link" th:href="@{/employees(page=${i}, size=${employeePage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" th:text="${i + 1}">1</a>
+                                <a class="page-link" th:href="@{/companies(page=${i}, size=${companyPage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" th:text="${i + 1}">1</a>
                             </li>
                             <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-                                <a class="page-link" th:href="@{/employees(page=${currentPage + 1}, size=${employeePage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" aria-label="Next">
+                                <a class="page-link" th:href="@{/companies(page=${currentPage + 1}, size=${companyPage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
@@ -85,8 +93,8 @@
             </div>
         </div>
     </div>
-    <div layout:replace="~{employee/modal-register :: modal-register}"></div>
-    <div layout:replace="~{employee/modal-delete :: modal-delete}"></div>
+    <div layout:replace="~{company/modal-register :: modal-register}"></div>
+    <div layout:replace="~{company/modal-delete :: modal-delete}"></div>
 </main>
 </body>
 </html>

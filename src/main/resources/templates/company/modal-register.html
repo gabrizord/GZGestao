@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="pt-br">
+<head>
+    <title>Modal Register Company</title>
+</head>
+<body>
+<div class="modal fade" id="registerCompanyModal" tabindex="-1" aria-labelledby="registerCompanyModalLabel" aria-hidden="true" layout:fragment="modal-register">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerCompanyModalLabel">Cadastrar Empresa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="registerCompanyForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="razaoSocial" class="form-label">Razão Social</label>
+                            <input type="text" class="form-control" id="razaoSocial" name="razaoSocial" placeholder="Ex: Empresa Ltda" maxlength="100" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="nomeFantasia" class="form-label">Nome Fantasia</label>
+                            <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" placeholder="Ex: Minha Empresa" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="cnpj" class="form-label">CNPJ</label>
+                            <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Ex: 12345678000190" maxlength="14" pattern="\d{14}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="inscricaoEstadual" class="form-label">Inscrição Estadual</label>
+                            <input type="text" class="form-control" id="inscricaoEstadual" name="inscricaoEstadual" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="street" class="form-label">Logradouro</label>
+                            <input type="text" class="form-control" id="street" name="street" maxlength="255" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="number" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="number" name="number" maxlength="10" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="neighborhood" class="form-label">Bairro</label>
+                            <input type="text" class="form-control" id="neighborhood" name="neighborhood" maxlength="100">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="city" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="city" name="city" maxlength="50" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="state" class="form-label">Estado</label>
+                            <input type="text" class="form-control" id="state" name="state" maxlength="2" placeholder="Ex: SP" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="postalCode" class="form-label">CEP</label>
+                            <input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Ex: 01234567" maxlength="8" pattern="\d{8}" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="stateRegistrationIndicator" class="form-label">Indicador de Inscrição Estadual</label>
+                            <select class="form-select" id="stateRegistrationIndicator" name="stateRegistrationIndicator" required>
+                                <option value="1">Contribuinte ICMS</option>
+                                <option value="2">Contribuinte isento</option>
+                                <option value="9">Não Contribuinte</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="municipalityCode" class="form-label">Código do Município (IBGE)</label>
+                            <input type="text" class="form-control" id="municipalityCode" name="municipalityCode" maxlength="7">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="formattedPhone" class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="formattedPhone" name="phone" placeholder="Ex: 11912345678" maxlength="11" pattern="\d{10,11}">
+                            <input type="hidden" id="companyPhone" name="phoneNumber">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Ex: contato@empresa.com" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

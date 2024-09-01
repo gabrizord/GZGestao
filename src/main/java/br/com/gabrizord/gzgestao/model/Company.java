@@ -55,7 +55,7 @@ public class Company implements Serializable {
     private String municipalityCode; // Código do Município (IBGE)
 
     @Column(length = 11)
-    private String phone;
+    private String phoneNumber;
 
     @Column(length = 100)
     private String email;

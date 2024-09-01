@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/error").permitAll()
                         .requestMatchers("/api/employee/**").hasAuthority("ADMIN")
+                        .requestMatchers("/api/company/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login")
                         .failureUrl("/login?error=true")

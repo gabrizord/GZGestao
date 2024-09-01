@@ -4,6 +4,10 @@ import br.com.gabrizord.gzgestao.dto.CompanyDTO;
 import br.com.gabrizord.gzgestao.model.Company;
 import br.com.gabrizord.gzgestao.repository.CompanyRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -40,5 +44,11 @@ public class CompanyService {
     public void deleteCompanyById(Long id) {
        Company company = getCompanyById(id);
        companyRepository.delete(company);
+    }
+
+    public Page<Company> getPaginatedCompanies(int page, int size, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return companyRepository.findAll(pageable);
     }
 }
