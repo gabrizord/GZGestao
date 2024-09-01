@@ -50,7 +50,7 @@ function setupDeleteAction(buttonSelector, modalId, apiUrlTemplate, successMessa
             deleteModal.show();
         });
 
-        $(`#confirm${modalId}DeleteButton`).on('click', function() {
+        $(`#confirmDeleteButton`).on('click', function() {
             if (itemIdToDelete) {
                 $.ajax({
                     url: apiUrlTemplate.replace('{id}', itemIdToDelete),
