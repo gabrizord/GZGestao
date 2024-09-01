@@ -1,18 +1,7 @@
-/**
- * This script handles the registration and deletion of employees via AJAX requests.
- * It also formats the phone number input.
- */
-
 $(document).ready(function() {
-    /**
-     * Fetch the CSRF token and header from the meta tags.
-     */
     const token = $('meta[name="_csrf"]').attr('content');
     const header = $('meta[name="_csrf_header"]').attr('content');
 
-    /**
-     * Handle the form submission for registering a new employee.
-     */
     $('#registerEmployeeForm').on('submit', function(event) {
         event.preventDefault();
         const formData = {};
@@ -20,9 +9,6 @@ $(document).ready(function() {
             formData[item.name] = item.value;
         });
 
-        /**
-         * Send the form data to the API endpoint for registration.
-         */
         $.ajax({
             url: '/api/employee',
             type: 'POST',
@@ -44,14 +30,7 @@ $(document).ready(function() {
         });
     });
 
-    /**
-     * Store the ID of the employee to be deleted.
-     */
     let employeeIdToDelete = null;
-
-    /**
-     * Handle the click event for deleting an employee.
-     */
     $('.btn-danger[title="Excluir"]').on('click', function() {
         const row = $(this).closest('tr');
         employeeIdToDelete = row.find('td:first-child').text();
@@ -59,21 +38,12 @@ $(document).ready(function() {
 
         $('#employeeNameToDelete').text(employeeName);
 
-        /**
-         * Show the delete confirmation modal.
-         */
         const deleteModal = new bootstrap.Modal(document.getElementById('deleteEmployeeModal'));
         deleteModal.show();
     });
 
-    /**
-     * Handle the click event for confirming the deletion of an employee.
-     */
     $('#confirmDeleteButton').on('click', function() {
         if (employeeIdToDelete) {
-            /**
-             * Send a DELETE request to the API endpoint for deleting the employee.
-             */
             $.ajax({
                 url: `/api/employee/${employeeIdToDelete}`,
                 type: 'DELETE',
@@ -92,9 +62,6 @@ $(document).ready(function() {
         }
     });
 
-    /**
-     * Format the phone number input.
-     */
     document.getElementById('formattedPhone').addEventListener('input', function (e) {
         let input = e.target.value;
         let rawValue = input.replace(/\D/g, '');

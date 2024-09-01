@@ -1,18 +1,6 @@
-/**
- * This script handles the registration and deletion of companies via AJAX requests.
- * It also formats the phone number input.
- */
-
 $(document).ready(function() {
-    /**
-     * Fetch the CSRF token and header from the meta tags.
-     */
     const token = $('meta[name="_csrf"]').attr('content');
     const header = $('meta[name="_csrf_header"]').attr('content');
-
-    /**
-     * Handle the form submission for registering a new company.
-     */
     $('#registerCompanyForm').on('submit', function(event) {
         event.preventDefault();
         const formData = {};
@@ -20,9 +8,6 @@ $(document).ready(function() {
             formData[item.name] = item.value;
         });
 
-        /**
-         * Send the form data to the API endpoint for registration.
-         */
         $.ajax({
             url: '/api/company', // Endpoint para cadastro de empresas
             type: 'POST',
@@ -44,15 +29,7 @@ $(document).ready(function() {
         });
     });
 
-
-    /**
-     * Store the ID of the company to be deleted.
-     */
     let companyIdToDelete = null;
-
-    /**
-     * Handle the click event for deleting an company.
-     */
     $('.btn-danger[title="Excluir"]').on('click', function() {
         const row = $(this).closest('tr');
         companyIdToDelete = row.find('td:first-child').text();
@@ -60,21 +37,12 @@ $(document).ready(function() {
 
         $('#companyNameToDelete').text(companyName);
 
-        /**
-         * Show the delete confirmation modal.
-         */
         const deleteModal = new bootstrap.Modal(document.getElementById('deleteCompanyModal'));
         deleteModal.show();
     });
 
-    /**
-     * Handle the click event for confirming the deletion of an company.
-     */
     $('#confirmDeleteButton').on('click', function() {
         if (companyIdToDelete) {
-            /**
-             * Send a DELETE request to the API endpoint for deleting the company.
-             */
             $.ajax({
                 url: `/api/company/${companyIdToDelete}`,
                 type: 'DELETE',
