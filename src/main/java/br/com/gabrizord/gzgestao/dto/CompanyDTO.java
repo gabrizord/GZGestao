@@ -79,7 +79,7 @@ public class CompanyDTO {
         company.setPostalCode(postalCode);
         company.setStateRegistrationIndicator(stateRegistrationIndicator);
         company.setMunicipalityCode(municipalityCode);
-        company.setPhone(phone);
+        company.setPhoneNumber(phone);
         company.setEmail(email);
         return company;
     }
