@@ -24,10 +24,10 @@ public class EmployeeService {
     }
 
     public Employee createEmployee(EmployeeDTO employeeDTO) {
-        validateIfEmployeeAlreadyExists(employeeDTO);
-
-        Employee employee = convertToEntity(employeeDTO);
-        return employeeRepository.save(employee);
+        employeeRepository.findByEmail(employeeDTO.getEmail()).ifPresent(employee -> {
+            throw new IllegalArgumentException("Já existe um funcionário com este email.");
+        });
+        return employeeRepository.save(employeeDTO.convertToEntity());
     }
 
     public List<Employee> getAllEmployees() {
@@ -57,18 +57,9 @@ public class EmployeeService {
     }
 
     public Page<Employee> getPaginatedEmployees(int page, int size, String sortField, String sortDirection) {
-        Sort sort = getSort(sortField, sortDirection);
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
         return employeeRepository.findAll(pageable);
-    }
-
-    private void validateIfEmployeeAlreadyExists(EmployeeDTO employeeDTO) {
-        Optional<Employee> employeeByName = employeeRepository.findByName(employeeDTO.getName());
-        Optional<Employee> employeeByEmail = employeeRepository.findByEmail(employeeDTO.getEmail());
-
-        if (employeeByName.isPresent() || employeeByEmail.isPresent()) {
-            throw new IllegalArgumentException("Já existe um funcionário com este nome ou e-mail.");
-        }
     }
 
     private void validateEmailChange(Employee existingEmployee, String newEmail) {
@@ -91,20 +82,5 @@ public class EmployeeService {
         if (employeeDTO.getPosition() != null && !employeeDTO.getPosition().equals(existingEmployee.getPosition())) {
             existingEmployee.setPosition(employeeDTO.getPosition());
         }
-    }
-
-    private Sort getSort(String sortField, String sortDirection) {
-        return sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())
-                ? Sort.by(sortField).ascending()
-                : Sort.by(sortField).descending();
-    }
-
-    private Employee convertToEntity(EmployeeDTO employeeDTO) {
-        Employee employee = new Employee();
-        employee.setName(employeeDTO.getName());
-        employee.setPosition(employeeDTO.getPosition());
-        employee.setEmail(employeeDTO.getEmail());
-        employee.setPhoneNumber(employeeDTO.getPhoneNumber());
-        return employee;
     }
 }

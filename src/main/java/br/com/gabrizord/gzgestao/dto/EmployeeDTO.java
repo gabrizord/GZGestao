@@ -1,5 +1,6 @@
 package br.com.gabrizord.gzgestao.dto;
 
+import br.com.gabrizord.gzgestao.model.Employee;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -28,4 +29,13 @@ public class EmployeeDTO {
     @NotBlank(message = "Telefone é obrigatório")
     @Size(max = 11, message = "Telefone não pode ter mais de 11 caracteres")
     private String phoneNumber;
+
+    public Employee convertToEntity() {
+        Employee employee = new Employee();
+        employee.setName(name);
+        employee.setPosition(position);
+        employee.setEmail(email);
+        employee.setPhoneNumber(phoneNumber);
+        return employee;
+    }
 }
