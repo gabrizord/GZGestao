@@ -20,7 +20,7 @@ setupGenericDeleteAction(
 setupGenericFormSubmission(
     '#editEmployeeForm',
     function() {
-        return '/api/employee/' + $('#editEmployeeId').val();  // Substitui {id} pelo valor real do ID
+        return '/api/employee/' + $('#editEmployeeId').val();
     },
     'PUT',
     'Colaborador atualizado com sucesso!',

@@ -59,7 +59,7 @@ public class CompanyDTO {
     private String municipalityCode;
 
     @Pattern(regexp = "^\\d{10,11}$", message = "O telefone deve ter 10 ou 11 dígitos")
-    private String phone;
+    private String phoneNumber;
 
     @Email(message = "Email deve ser um endereço de e-mail válido")
     @Size(max = 100, message = "Email não pode ter mais de 100 caracteres")
@@ -79,7 +79,7 @@ public class CompanyDTO {
         company.setPostalCode(postalCode);
         company.setStateRegistrationIndicator(stateRegistrationIndicator);
         company.setMunicipalityCode(municipalityCode);
-        company.setPhoneNumber(phone);
+        company.setPhoneNumber(phoneNumber);
         company.setEmail(email);
         return company;
     }
