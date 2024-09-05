@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="pt-br">
+<head>
+    <title>Modal Register</title>
+</head>
+<body>
+<div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-labelledby="editEmployeeModalLabel" aria-hidden="true" layout:fragment="modal-edit">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editEmployeeModalLabel">Editar Colaborador</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editEmployeeForm">
+                    <input type="hidden" id="editEmployeeId" name="id">
+                    <div class="mb-3">
+                        <label for="editEmployeeName" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="editEmployeeName" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEmployeeEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editEmployeeEmail" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEmployeePosition" class="form-label">Cargo</label>
+                        <input type="text" class="form-control" id="editEmployeePosition" name="position" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editFormattedPhone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" id="editFormattedPhone" required>
+                        <input type="hidden" id="editEmployeePhone" name="phoneNumber">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
