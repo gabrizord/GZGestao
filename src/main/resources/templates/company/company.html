@@ -59,9 +59,9 @@
                                 <a href="#" class="btn btn-sm btn-info" title="Ver Detalhes">
                                     <i class='bx bx-show'></i>
                                 </a>
-                                <a href="#" class="btn btn-sm btn-warning" title="Editar">
+                                <button type="button" class="btn btn-sm btn-warning" title="Editar" data-bs-toggle="modal" data-bs-target="#editCompanyModal" onclick="populateEditCompanyForm(this)">
                                     <i class='bx bx-edit'></i>
-                                </a>
+                                </button>
                                 <button type="button" class="btn btn-sm btn-danger" title="Excluir">
                                     <i class='bx bx-trash'></i>
                                 </button>
@@ -95,6 +95,7 @@
     </div>
     <div layout:replace="~{company/modal-register :: modal-register}"></div>
     <div layout:replace="~{company/modal-delete :: modal-delete}"></div>
+    <div layout:replace="~{company/modal-edit :: modal-edit}"></div>
 </main>
 </body>
 </html>

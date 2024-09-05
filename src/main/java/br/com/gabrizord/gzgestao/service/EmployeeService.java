@@ -1,8 +1,10 @@
 package br.com.gabrizord.gzgestao.service;
 
 import br.com.gabrizord.gzgestao.dto.EmployeeDTO;
+import br.com.gabrizord.gzgestao.dto.EmployeeUpdateDTO;
 import br.com.gabrizord.gzgestao.model.Employee;
 import br.com.gabrizord.gzgestao.repository.EmployeeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,17 +23,11 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee saveEmployee(EmployeeDTO employeeDTO) {
-        employeeRepository.findByName(employeeDTO.getName()).ifPresent(employee -> {
-            throw new IllegalArgumentException("Já existe um funcionário com este nome.");
-        });
-
+    public Employee createEmployee(EmployeeDTO employeeDTO) {
         employeeRepository.findByEmail(employeeDTO.getEmail()).ifPresent(employee -> {
-            throw new IllegalArgumentException("Já existe um funcionário com este e-mail.");
+            throw new IllegalArgumentException("Já existe um funcionário com este email.");
         });
-
-        Employee employee = convertToEntity(employeeDTO);
-        return employeeRepository.save(employee);
+        return employeeRepository.save(employeeDTO.convertToEntity());
     }
 
     public List<Employee> getAllEmployees() {
@@ -39,14 +35,25 @@ public class EmployeeService {
     }
 
     public Optional<Employee> getEmployeeById(Long id) {
-        if (!employeeRepository.existsById(id)) {
-            throw new IllegalArgumentException("Colaborador não encontrado.");
-        }
         return employeeRepository.findById(id);
     }
 
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    public Employee updateEmployee(Long id, EmployeeUpdateDTO employeeDTO) {
+        Employee existingEmployee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado"));
+
+        if (employeeDTO.getEmail() != null && !employeeDTO.getEmail().equals(existingEmployee.getEmail())) {
+            validateEmailChange(existingEmployee, employeeDTO.getEmail());
+            existingEmployee.setEmail(employeeDTO.getEmail());
+        }
+
+        updateEmployeeFields(existingEmployee, employeeDTO);
+
+        return employeeRepository.save(existingEmployee);
     }
 
     public Page<Employee> getPaginatedEmployees(int page, int size, String sortField, String sortDirection) {
@@ -55,13 +62,25 @@ public class EmployeeService {
         return employeeRepository.findAll(pageable);
     }
 
+    private void validateEmailChange(Employee existingEmployee, String newEmail) {
+        if (!existingEmployee.getEmail().equals(newEmail)) {
+            employeeRepository.findByEmail(newEmail).ifPresent(e -> {
+                if (!e.getId().equals(existingEmployee.getId())) {
+                    throw new IllegalArgumentException("E-mail já está em uso");
+                }
+            });
+        }
+    }
 
-    public Employee convertToEntity(EmployeeDTO employeeDTO) {
-        Employee employee = new Employee();
-        employee.setName(employeeDTO.getName());
-        employee.setPosition(employeeDTO.getPosition());
-        employee.setEmail(employeeDTO.getEmail());
-        employee.setPhoneNumber(employeeDTO.getPhoneNumber());
-        return employee;
+    private void updateEmployeeFields(Employee existingEmployee, EmployeeUpdateDTO employeeDTO) {
+        if (employeeDTO.getName() != null && !employeeDTO.getName().equals(existingEmployee.getName())) {
+            existingEmployee.setName(employeeDTO.getName());
+        }
+        if (employeeDTO.getPhoneNumber() != null && !employeeDTO.getPhoneNumber().equals(existingEmployee.getPhoneNumber())) {
+            existingEmployee.setPhoneNumber(employeeDTO.getPhoneNumber());
+        }
+        if (employeeDTO.getPosition() != null && !employeeDTO.getPosition().equals(existingEmployee.getPosition())) {
+            existingEmployee.setPosition(employeeDTO.getPosition());
+        }
     }
 }

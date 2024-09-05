@@ -1,6 +1,7 @@
 package br.com.gabrizord.gzgestao.controller;
 
 import br.com.gabrizord.gzgestao.dto.EmployeeDTO;
+import br.com.gabrizord.gzgestao.dto.EmployeeUpdateDTO;
 import br.com.gabrizord.gzgestao.model.Employee;
 import br.com.gabrizord.gzgestao.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -23,7 +24,7 @@ public class EmployeeRestController {
 
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
-        Employee createdEmployee = employeeService.saveEmployee(employeeDTO);
+        Employee createdEmployee = employeeService.createEmployee(employeeDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdEmployee);
     }
 
@@ -44,5 +45,11 @@ public class EmployeeRestController {
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeUpdateDTO employeeDTO) {
+        Employee updatedEmployee = employeeService.updateEmployee(id, employeeDTO);
+        return ResponseEntity.ok(updatedEmployee);
     }
 }

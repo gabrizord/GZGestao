@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="pt-br">
+<head>
+    <title>Modal Edit</title>
+</head>
+<body>
+<div class="modal fade" id="editCompanyModal" tabindex="-1" aria-labelledby="editCompanyModalLabel" aria-hidden="true" layout:fragment="modal-edit">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCompanyModalLabel">Editar Empresa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editCompanyForm">
+                    <input type="hidden" id="editCompanyId" name="id">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="editRazaoSocial" class="form-label">Razão Social</label>
+                            <input type="text" class="form-control" id="editRazaoSocial" name="razaoSocial" placeholder="Ex: Empresa Ltda" maxlength="100" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="editNomeFantasia" class="form-label">Nome Fantasia</label>
+                            <input type="text" class="form-control" id="editNomeFantasia" name="nomeFantasia" placeholder="Ex: Minha Empresa" maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="editCnpj" class="form-label">CNPJ</label>
+                            <input type="text" class="form-control" id="editCnpj" name="cnpj" placeholder="Ex: 12345678000190" maxlength="14" pattern="\d{14}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="editInscricaoEstadual" class="form-label">Inscrição Estadual</label>
+                            <input type="text" class="form-control" id="editInscricaoEstadual" name="inscricaoEstadual" maxlength="20">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="editStreet" class="form-label">Logradouro</label>
+                            <input type="text" class="form-control" id="editStreet" name="street" maxlength="255" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="editNumber" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="editNumber" name="number" maxlength="10" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="editNeighborhood" class="form-label">Bairro</label>
+                            <input type="text" class="form-control" id="editNeighborhood" name="neighborhood" maxlength="100">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="editCity" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="editCity" name="city" maxlength="50" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="editState" class="form-label">Estado</label>
+                            <input type="text" class="form-control" id="editState" name="state" maxlength="2" placeholder="Ex: SP" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="editPostalCode" class="form-label">CEP</label>
+                            <input type="text" class="form-control" id="editPostalCode" name="postalCode" placeholder="Ex: 01234567" maxlength="8" pattern="\d{8}" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="editStateRegistrationIndicator" class="form-label">Indicador de Inscrição Estadual</label>
+                            <select class="form-select" id="editStateRegistrationIndicator" name="stateRegistrationIndicator" required>
+                                <option value="1">Contribuinte ICMS</option>
+                                <option value="2">Contribuinte isento</option>
+                                <option value="9">Não Contribuinte</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="editMunicipalityCode" class="form-label">Código do Município (IBGE)</label>
+                            <input type="text" class="form-control" id="editMunicipalityCode" name="municipalityCode" maxlength="7">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="editPhone" class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="editPhone" name="phoneNumber" placeholder="Ex: 11912345678" maxlength="11" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" name="email" placeholder="Ex: contato@empresa.com" maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

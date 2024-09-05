@@ -57,7 +57,7 @@ class EmployeeRestControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(employeeDTO);
 
-        when(employeeService.saveEmployee(Mockito.any(EmployeeDTO.class))).thenReturn(employee);
+        when(employeeService.createEmployee(Mockito.any(EmployeeDTO.class))).thenReturn(employee);
 
         mockMvc.perform(post("/api/employee")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -66,6 +66,6 @@ class EmployeeRestControllerTest {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        Mockito.verify(employeeService, Mockito.times(1)).saveEmployee(Mockito.any(EmployeeDTO.class));
+        Mockito.verify(employeeService, Mockito.times(1)).createEmployee(Mockito.any(EmployeeDTO.class));
     }
 }

@@ -1,6 +1,7 @@
 package br.com.gabrizord.gzgestao.controller;
 
 import br.com.gabrizord.gzgestao.dto.CompanyDTO;
+import br.com.gabrizord.gzgestao.dto.CompanyUpdateDTO;
 import br.com.gabrizord.gzgestao.model.Company;
 import br.com.gabrizord.gzgestao.service.CompanyService;
 import jakarta.validation.Valid;
@@ -39,7 +40,13 @@ public class CompanyRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCompany(@PathVariable Long id) {
-        companyService.deleteCompanyById(id);
+        companyService.deleteCompany(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Company> updateCompany(@PathVariable Long id, @Valid @RequestBody CompanyUpdateDTO companyDTO) {
+        Company updatedCompany = companyService.updateCompany(id, companyDTO);
+        return ResponseEntity.ok(updatedCompany);
     }
 }
