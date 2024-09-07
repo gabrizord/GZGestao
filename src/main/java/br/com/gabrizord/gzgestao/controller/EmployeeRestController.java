@@ -52,4 +52,10 @@ public class EmployeeRestController {
         Employee updatedEmployee = employeeService.updateEmployee(id, employeeDTO);
         return ResponseEntity.ok(updatedEmployee);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Employee>> searchEmployees(@RequestParam("name") String name) {
+        List<Employee> employees = employeeService.findByNameContainingIgnoreCase(name);
+        return ResponseEntity.ok(employees);
+    }
 }

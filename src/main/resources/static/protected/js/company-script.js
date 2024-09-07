@@ -1,3 +1,4 @@
+// Setup for registering a new company using form submission
 setupGenericFormSubmission(
     '#registerCompanyForm',
     '/api/company',
@@ -7,6 +8,7 @@ setupGenericFormSubmission(
     'registerCompanyModal'
 );
 
+// Setup for deleting a company
 setupGenericDeleteAction(
     '.btn-danger[title="Excluir"]',
     'deleteCompanyModal',
@@ -17,6 +19,7 @@ setupGenericDeleteAction(
     'Ocorreu um erro ao excluir a empresa.'
 );
 
+// Setup for editing a company's details using form submission
 setupGenericFormSubmission(
     '#editCompanyForm',
     function() {
@@ -28,6 +31,7 @@ setupGenericFormSubmission(
     'editCompanyModal'
 );
 
+// Function to populate the company edit form with data from the server
 function populateEditCompanyForm(button) {
     const row = $(button).closest('tr');
     const companyId = row.find('td:first-child').text();
@@ -57,6 +61,3 @@ function populateEditCompanyForm(button) {
         }
     });
 }
-
-
-

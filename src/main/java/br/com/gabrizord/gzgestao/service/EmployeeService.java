@@ -83,4 +83,10 @@ public class EmployeeService {
             existingEmployee.setPosition(employeeDTO.getPosition());
         }
     }
+
+    public List<Employee> findByNameContainingIgnoreCase(String name) {
+        System.out.println("Buscando colaboradores que contenham: " + name);
+        System.out.println(employeeRepository.findByNameContainingIgnoreCase(name));
+        return employeeRepository.findByNameContainingIgnoreCase(name);
+    }
 }
