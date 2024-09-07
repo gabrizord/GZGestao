@@ -87,7 +87,7 @@ function populateEditEmployeeForm(button) {
 function setupEmployeeSearch() {
     $(document).ready(function() {
         setupSearchAndTable(
-            '#searchInput',               // Search input field ID
+            '#searchEmployeeInput',               // Search input field ID
             '#resultsTableBody',          // Table body ID for results
             '/api/employee/search',       // API URL for search
             '/api/employee',              // API URL for details

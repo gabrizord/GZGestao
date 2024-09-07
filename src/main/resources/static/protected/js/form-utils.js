@@ -140,28 +140,11 @@ function setupSearchAndTable(searchInputId, tableBodyId, searchUrl, detailsUrl, 
 
         // Function to reconfigure action buttons after table update
         function setupActionButtons() {
-            // Reconfigure delete action
-            setupGenericDeleteAction(
-                '.btn-danger[title="Delete"]',
-                'deleteEmployeeModal',
-                '/api/employee/{id}',
-                'td:first-child',
-                'td:nth-child(2)',
-                'Employee deleted successfully!',
-                'An error occurred while deleting the employee.'
-            );
+            // Remova event handlers antigos antes de adicionar novos
+            $(document).off('click', '.btn-danger[title="Excluir"]');
+            $(document).off('click', '.btn-warning[title="Editar"]');
 
-            // Reconfigure form submission for editing
-            setupGenericFormSubmission(
-                '#editEmployeeForm',
-                function() {
-                    return '/api/employee/' + $('#editEmployeeId').val();
-                },
-                'PUT',
-                'Employee updated successfully!',
-                'An error occurred while updating the employee.',
-                'editEmployeeModal'
-            );
+            // NOT IMPLEMENTED YET
         }
     });
 }
