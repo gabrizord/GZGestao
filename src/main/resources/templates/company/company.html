@@ -12,9 +12,15 @@
         <div class="row justify-content-center">
             <div class="col">
                 <h1>Lista de Organizações</h1>
-                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#registerCompanyModal">
-                    Cadastrar Nova Organização
-                </button>
+                <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-dark rounded shadow-sm">
+                    <!-- Caixa de pesquisa -->
+                    <input type="text" class="form-control search-bar me-3" placeholder="Pesquisar organização...">
+
+                    <!-- Botão de adicionar -->
+                    <button type="button" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#registerCompanyModal">
+                        <i class="bx bx-plus"></i> Adicionar
+                    </button>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-secondary table-striped table-hover rounded overflow-hidden">
                         <caption class="sr-only text-white">Lista de colaboradores e suas respectivas ações</caption>
