@@ -99,4 +99,8 @@ public class CompanyService {
         Pageable pageable = PageRequest.of(page, size, sort);
         return companyRepository.findAll(pageable);
     }
+
+    public List<Company> findByNameContainingIgnoreCase(String name) {
+        return companyRepository.findByRazaoSocialContainingIgnoreCase(name);
+    }
 }

@@ -75,11 +75,52 @@ function populateEditCompanyForm(button) {
     });
 }
 
+function setupCompanySearch() {
+    $(document).ready(function() {
+        setupSearchAndTable(
+            '#searchCompanyInput',         // Campo de pesquisa
+            '#companyResultsTableBody',    // Corpo da tabela para resultados
+            '/api/company/search',         // URL da API para buscar empresas
+            '/api/company',                // URL da API para detalhes da empresa
+            function(item) {               // Função para formatar as linhas da tabela
+                return `
+                    <tr>
+                        <td>${item.id}</td>
+                        <td>${item.razaoSocial}</td>
+                        <td>${formatCNPJ(item.cnpj)}</td>
+                        <td>${item.email}</td>
+                        <td>${formatPhoneNumber(item.phoneNumber)}</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-info" title="Ver Detalhes">
+                                <i class='bx bx-show'></i>
+                            </a>
+                            <button type="button" class="btn btn-sm btn-warning" title="Editar" data-bs-toggle="modal" data-bs-target="#editCompanyModal" onclick="populateEditCompanyForm(this)">
+                                <i class='bx bx-edit'></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger" title="Excluir">
+                                <i class='bx bx-trash'></i>
+                            </button>
+                        </td>
+                    </tr>`;
+            }
+        );
+    });
+}
+
+function formatCNPJ(cnpj) {
+    return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5");
+}
+
+function formatPhoneNumber(phoneNumber) {
+    return `(${phoneNumber.substring(0, 2)}) ${phoneNumber.substring(2, 7)}-${phoneNumber.substring(7)}`;
+}
+
 // Initial Setup Execution
 function initCompanyManagement() {
     registerCompany();
     editCompany();
     deleteCompany();
+    setupCompanySearch();
 }
 
 // Initialize company management setup when the document is ready
