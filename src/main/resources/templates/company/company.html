@@ -12,9 +12,14 @@
         <div class="row justify-content-center">
             <div class="col">
                 <h1>Lista de Organizações</h1>
-                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#registerCompanyModal">
-                    Cadastrar Nova Organização
-                </button>
+                <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-dark rounded shadow-sm">
+                    <label for="searchCompanyInput" class="visually-hidden">Pesquisar colaboradores</label>
+                    <input type="text" id="searchCompanyInput" class="form-control search-bar me-3" placeholder="Pesquisar organização...">
+
+                    <button type="button" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#registerCompanyModal">
+                        <i class="bx bx-plus"></i> Adicionar
+                    </button>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-secondary table-striped table-hover rounded overflow-hidden">
                         <caption class="sr-only text-white">Lista de colaboradores e suas respectivas ações</caption>
@@ -34,39 +39,39 @@
                             <th scope="col">Ações</th>
                         </tr>
                         </thead>
-                        <tbody class="table-group-divider">
-                        <tr th:each="company : ${companyPage.content}">
-                            <td th:text="${company.id}"></td>
-                            <td th:text="${company.razaoSocial}"></td>
-                            <td th:text="${#strings.substring(company.cnpj, 0, 2) + '.' +
-                               #strings.substring(company.cnpj, 2, 5) + '.' +
-                               #strings.substring(company.cnpj, 5, 8) + '/' +
-                               #strings.substring(company.cnpj, 8, 12) + '-' +
-                               #strings.substring(company.cnpj, 12, 14)}">
-                            </td>
-                            <td th:text="${company.email}"></td>
-                            <td th:if="${#strings.length(company.phoneNumber) == 10}"
-                                th:text="${'(' + #strings.substring(company.phoneNumber, 0, 2) + ') ' +
-                                    #strings.substring(company.phoneNumber, 2, 6) + '-' +
-                                    #strings.substring(company.phoneNumber, 6)}">
-                            </td>
-                            <td th:if="${#strings.length(company.phoneNumber) == 11}"
-                                th:text="${'(' + #strings.substring(company.phoneNumber, 0, 2) + ') ' +
-                                    #strings.substring(company.phoneNumber, 2, 7) + '-' +
-                                    #strings.substring(company.phoneNumber, 7)}">
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-sm btn-info" title="Ver Detalhes">
-                                    <i class='bx bx-show'></i>
-                                </a>
-                                <button type="button" class="btn btn-sm btn-warning" title="Editar" data-bs-toggle="modal" data-bs-target="#editCompanyModal" onclick="populateEditCompanyForm(this)">
-                                    <i class='bx bx-edit'></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-danger" title="Excluir">
-                                    <i class='bx bx-trash'></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <tbody id="companyResultsTableBody" class="table-group-divider">
+                            <tr th:each="company : ${companyPage.content}">
+                                <td th:text="${company.id}"></td>
+                                <td th:text="${company.razaoSocial}"></td>
+                                <td th:text="${#strings.substring(company.cnpj, 0, 2) + '.' +
+                                   #strings.substring(company.cnpj, 2, 5) + '.' +
+                                   #strings.substring(company.cnpj, 5, 8) + '/' +
+                                   #strings.substring(company.cnpj, 8, 12) + '-' +
+                                   #strings.substring(company.cnpj, 12, 14)}">
+                                </td>
+                                <td th:text="${company.email}"></td>
+                                <td th:if="${#strings.length(company.phoneNumber) == 10}"
+                                    th:text="${'(' + #strings.substring(company.phoneNumber, 0, 2) + ') ' +
+                                        #strings.substring(company.phoneNumber, 2, 6) + '-' +
+                                        #strings.substring(company.phoneNumber, 6)}">
+                                </td>
+                                <td th:if="${#strings.length(company.phoneNumber) == 11}"
+                                    th:text="${'(' + #strings.substring(company.phoneNumber, 0, 2) + ') ' +
+                                        #strings.substring(company.phoneNumber, 2, 7) + '-' +
+                                        #strings.substring(company.phoneNumber, 7)}">
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-info" title="Ver Detalhes">
+                                        <i class='bx bx-show'></i>
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-warning" title="Editar" data-bs-toggle="modal" data-bs-target="#editCompanyModal" onclick="populateEditCompanyForm(this)">
+                                        <i class='bx bx-edit'></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger" title="Excluir">
+                                        <i class='bx bx-trash'></i>
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

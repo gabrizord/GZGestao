@@ -49,4 +49,10 @@ public class CompanyRestController {
         Company updatedCompany = companyService.updateCompany(id, companyDTO);
         return ResponseEntity.ok(updatedCompany);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Company>> searchCompanies(@RequestParam("name") String name) {
+        List<Company> companies = companyService.findByNameContainingIgnoreCase(name);
+        return ResponseEntity.ok(companies);
+    }
 }
