@@ -122,6 +122,9 @@ function setupSearchAndTable(searchInputId, tableBodyId, searchUrl, detailsUrl, 
                         alert('Error fetching results.');
                     }
                 });
+            } else if (query.length === 0) {
+                // If the search input is cleared, reload the page to restore the original table
+                location.reload();
             }
         });
 
@@ -144,7 +147,8 @@ function setupSearchAndTable(searchInputId, tableBodyId, searchUrl, detailsUrl, 
             $(document).off('click', '.btn-danger[title="Excluir"]');
             $(document).off('click', '.btn-warning[title="Editar"]');
 
-            // NOT IMPLEMENTED YET
+            // NOT IMPLEMENTED YET - You can add custom button actions here
         }
     });
 }
+
