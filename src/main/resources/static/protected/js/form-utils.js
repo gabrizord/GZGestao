@@ -99,56 +99,65 @@ function setupGenericDeleteAction(buttonSelector, modalId, apiUrlTemplate, idSel
 // Function to configure search and update a table with results.
 // Receives the search input ID, the table body ID, the API search URL,
 // the details URL, and a function to format table rows.
+// Função para configurar a busca e atualizar a tabela com debounce
 function setupSearchAndTable(searchInputId, tableBodyId, searchUrl, detailsUrl, rowFormatter) {
     $(document).ready(function() {
         const searchInput = $(searchInputId);
         const tableBody = $(tableBodyId);
 
-        // Search input handler, triggers search when query is longer than 2 characters
-        searchInput.on('input', function() {
-            let query = $(this).val();
+        // Função para buscar dados
+        const performSearch = debounce(function() {
+            let query = searchInput.val();
             if (query.length > 2) {
-                // AJAX request to search for results
+                // AJAX request para buscar resultados
                 $.ajax({
                     url: searchUrl,
                     type: 'GET',
                     data: { name: query },
                     success: function(data) {
-                        // Update the table with search results
+                        // Atualiza a tabela com os resultados
                         updateTable(data, tableBody, rowFormatter);
                     },
                     error: function() {
-                        // Show error alert if search fails
-                        alert('Error fetching results.');
+                        alert('Erro ao buscar os resultados.');
                     }
                 });
             } else if (query.length === 0) {
-                // If the search input is cleared, reload the page to restore the original table
+                // Recarregar a página se o campo de busca estiver vazio
                 location.reload();
             }
-        });
+        }, 300); // 300ms delay para debouncing
 
-        // Function to update the table with search results
+        // Adiciona o debounce à busca
+        searchInput.on('input', performSearch);
+
+        // Função para atualizar a tabela com os resultados
         function updateTable(data, tableBody, rowFormatter) {
-            tableBody.empty(); // Clear the current table body
+            tableBody.empty(); // Limpa o corpo atual da tabela
             data.forEach(function(item) {
-                // Append formatted rows to the table
+                // Adiciona linhas formatadas à tabela
                 let row = rowFormatter(item);
                 tableBody.append(row);
             });
 
-            // Reinitialize actions for newly added buttons after table update
+            // Reconfigura os botões de ação após a atualização da tabela
             setupActionButtons();
         }
 
-        // Function to reconfigure action buttons after table update
+        // Função para reconfigurar botões de ação após atualização da tabela
         function setupActionButtons() {
-            // Remova event handlers antigos antes de adicionar novos
             $(document).off('click', '.btn-danger[title="Excluir"]');
             $(document).off('click', '.btn-warning[title="Editar"]');
-
-            // NOT IMPLEMENTED YET - You can add custom button actions here
         }
     });
+}
+
+// Debounce function
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
 }
 
