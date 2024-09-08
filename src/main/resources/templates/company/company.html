@@ -11,8 +11,8 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col">
-                <h1>Lista de Organizações</h1>
-                <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-dark rounded shadow-sm">
+                <h1>Organizações</h1>
+                <div class="secondary-header d-flex justify-content-between align-items-center mb-3 p-2 rounded shadow-sm">
                     <label for="searchCompanyInput" class="visually-hidden">Pesquisar colaboradores</label>
                     <input type="text" id="searchCompanyInput" class="form-control search-bar me-3" placeholder="Pesquisar organização...">
 
@@ -22,7 +22,7 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-secondary table-striped table-hover rounded overflow-hidden">
-                        <caption class="sr-only text-white">Lista de colaboradores e suas respectivas ações</caption>
+                        <caption class="sr-only">Lista de colaboradores e suas respectivas ações</caption>
                         <thead class="table-dark">
                         <tr>
                             <th scope="col">ID</th>
@@ -83,8 +83,7 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                                th:classappend="${i == currentPage} ? 'active'">
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
                                 <a class="page-link" th:href="@{/companies(page=${i}, size=${companyPage.size}, sortField=${sortField}, sortDirection=${sortDirection})}" th:text="${i + 1}">1</a>
                             </li>
                             <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
