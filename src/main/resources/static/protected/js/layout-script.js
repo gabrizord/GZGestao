@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     /**
-     * Exibe ou oculta a navbar ao clicar no botão de toggle
-     * @param {string} toggleId - ID do botão de toggle
-     * @param {string} navId - ID da navbar
-     * @param {string} bodyId - ID do body
-     * @param {string} headerId - ID do header
+     * Toggles the navbar visibility when clicking the toggle button
+     * @param {string} toggleId - ID of the toggle button
+     * @param {string} navId - ID of the navbar
+     * @param {string} bodyId - ID of the body
+     * @param {string} headerId - ID of the header
      */
     function showNavbar(toggleId, navId, bodyId, headerId) {
         const toggle = document.getElementById(toggleId);
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 nav.classList.toggle(CLASSES.SHOW);
                 toggle.classList.toggle(CLASSES.BX_X);
 
-                // Alternar padding ao mostrar/ocultar navbar
+                // Toggle padding when showing/hiding the navbar
                 if (isNavVisible) {
                     bodypd.classList.remove(CLASSES.BODY_PD);
                     headerpd.classList.remove(CLASSES.BODY_PD);
@@ -35,12 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     headerpd.classList.add(CLASSES.BODY_PD);
                 }
 
-                // Sempre remover a classe de hover ao clicar
+                // Always remove hover class when clicking
                 bodypd.classList.remove(CLASSES.BODY_PD_HOVER);
                 headerpd.classList.remove(CLASSES.BODY_PD_HOVER);
             });
 
-            // Mostrar navbar ao passar o mouse
+            // Show navbar on mouse enter
             nav.addEventListener('mouseenter', () => {
                 if (!toggle.classList.contains(CLASSES.BX_X)) {
                     nav.classList.add(CLASSES.SHOW);
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
 
-            // Ocultar navbar ao retirar o mouse
+            // Hide navbar on mouse leave
             nav.addEventListener('mouseleave', () => {
                 if (!toggle.classList.contains(CLASSES.BX_X)) {
                     nav.classList.remove(CLASSES.SHOW);
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     /**
-     * Aplica a classe 'active' no link selecionado na navbar
+     * Applies the 'active' class to the selected navbar link
      */
     function activateLinks() {
         const linkColor = document.querySelectorAll('.nav_link');
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         linkColor.forEach(l => l.addEventListener('click', colorLink));
 
-        // Ativar o link com base no caminho atual da página
+        // Activate link based on the current page path
         linkColor.forEach(l => {
             if (l.getAttribute('href') === currentPath) {
                 l.classList.add(CLASSES.ACTIVE);
@@ -83,13 +83,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     /**
-     * Alterna entre temas claro e escuro e salva a preferência no localStorage
+     * Toggles between light and dark themes and saves the preference to localStorage
      */
     function toggleTheme() {
         const body = document.body;
         const currentTheme = localStorage.getItem('theme');
 
-        // Alterna entre 'light' e 'dark'
+        // Toggle between 'light' and 'dark'
         if (currentTheme === "light") {
             body.classList.remove("light-mode");
             localStorage.setItem("theme", "dark");
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     /**
-     * Aplica o tema salvo no localStorage quando a página é carregada
+     * Applies the saved theme from localStorage when the page is loaded
      */
     function applySavedTheme() {
         const savedTheme = localStorage.getItem("theme");
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     /**
-     * Adiciona o event listener no botão de tema
+     * Adds the event listener to the theme toggle button
      */
     function setupThemeToggleButton() {
         const themeToggleButton = document.getElementById("theme-toggle");
@@ -121,9 +121,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Inicialização das funções
+    // Initialize functions
     showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
     activateLinks();
     applySavedTheme();
-    setupThemeToggleButton(); // Inicializa o botão de tema
+    setupThemeToggleButton(); // Initialize theme toggle button
 });

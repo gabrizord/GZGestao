@@ -4,8 +4,8 @@
     <title>Sidebar</title>
 </head>
 <body>
-<div class="l-navbar border border-black border-opacity-75" id="nav-bar" layout:fragment="navbar">
-    <nav class="nav">
+<div class="l-navbar top-0 border border-black border-opacity-75 position-fixed" id="nav-bar" layout:fragment="navbar">
+    <nav class="d-flex flex-column justify-content-between overflow-hidden h-100">
         <div>
             <a href="#" class="nav_logo"> <img th:src="@{protected/assets/icon.svg}" alt="Ícone" class="nav_logo-icon"> <span class="nav_logo-name">GZGestão</span> </a>
             <div class="nav_list">

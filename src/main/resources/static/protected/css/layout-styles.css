@@ -7,7 +7,7 @@
     --body-font: "Roboto", sans-serif;
     --normal-font-size: 1rem;
 
-    /* Colors para o tema escuro (padrão) */
+    /* Colors dark default theme */
     --primary-color: #171717;
     --primary-color-light: #212121;
     --primary-color-lighter: #2A2A2A;
@@ -22,7 +22,7 @@
     --z-fixed: 100;
 }
 
-/* Tema claro */
+/* Light Mode */
 .light-mode {
     --primary-color: #f0f0f0;
     --primary-color-light: #ffffff;
@@ -56,7 +56,6 @@ a {
 .header {
     width: 100%;
     height: var(--header-height);
-    top: 0;
     left: 0;
     padding: 0 1rem;
     background-color: var(--primary-color);
@@ -93,8 +92,6 @@ main .col {
 
 /* Navbar Styles */
 .l-navbar {
-    position: fixed;
-    top: 0;
     left: -30%;
     width: var(--nav-width);
     height: 100vh;
@@ -102,14 +99,6 @@ main .col {
     padding: 0.5rem 1rem 0 0;
     transition: 0.5s;
     z-index: var(--z-fixed);
-}
-
-.nav {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
 }
 
 .nav_logo, .nav_link {
