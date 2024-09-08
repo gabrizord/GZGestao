@@ -7,7 +7,7 @@
     --body-font: "Roboto", sans-serif;
     --normal-font-size: 1rem;
 
-    /* Colors */
+    /* Colors para o tema escuro (padrão) */
     --primary-color: #171717;
     --primary-color-light: #212121;
     --primary-color-lighter: #2A2A2A;
@@ -20,6 +20,17 @@
     --header-height: 3rem;
     --nav-width: 68px;
     --z-fixed: 100;
+}
+
+/* Tema claro */
+.light-mode {
+    --primary-color: #f0f0f0;
+    --primary-color-light: #ffffff;
+    --primary-color-lighter: #e0e0e0;
+    --neutral-color-light: #333333;
+    --neutral-color-dark: #555555;
+    --white-color: #000000;
+    --background-color: #f8f8f8;
 }
 
 /* Global Styles */
@@ -48,7 +59,7 @@ a {
     top: 0;
     left: 0;
     padding: 0 1rem;
-    background-color: var(--primary-color-light);
+    background-color: var(--primary-color);
     z-index: var(--z-fixed);
     transition: 0.5s;
 }

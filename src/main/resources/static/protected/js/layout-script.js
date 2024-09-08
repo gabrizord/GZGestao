@@ -7,7 +7,14 @@ document.addEventListener("DOMContentLoaded", function() {
         BX_X: 'bx-x'
     };
 
-    const showNavbar = (toggleId, navId, bodyId, headerId) => {
+    /**
+     * Exibe ou oculta a navbar ao clicar no botão de toggle
+     * @param {string} toggleId - ID do botão de toggle
+     * @param {string} navId - ID da navbar
+     * @param {string} bodyId - ID do body
+     * @param {string} headerId - ID do header
+     */
+    function showNavbar(toggleId, navId, bodyId, headerId) {
         const toggle = document.getElementById(toggleId);
         const nav = document.getElementById(navId);
         const bodypd = document.getElementById(bodyId);
@@ -19,12 +26,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 nav.classList.toggle(CLASSES.SHOW);
                 toggle.classList.toggle(CLASSES.BX_X);
 
+                // Alternar padding ao mostrar/ocultar navbar
                 if (isNavVisible) {
-                    // Se a navbar estava visível, estamos fechando
                     bodypd.classList.remove(CLASSES.BODY_PD);
                     headerpd.classList.remove(CLASSES.BODY_PD);
                 } else {
-                    // Se a navbar estava fechada, estamos abrindo
                     bodypd.classList.add(CLASSES.BODY_PD);
                     headerpd.classList.add(CLASSES.BODY_PD);
                 }
@@ -34,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 headerpd.classList.remove(CLASSES.BODY_PD_HOVER);
             });
 
+            // Mostrar navbar ao passar o mouse
             nav.addEventListener('mouseenter', () => {
                 if (!toggle.classList.contains(CLASSES.BX_X)) {
                     nav.classList.add(CLASSES.SHOW);
@@ -42,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
 
+            // Ocultar navbar ao retirar o mouse
             nav.addEventListener('mouseleave', () => {
                 if (!toggle.classList.contains(CLASSES.BX_X)) {
                     nav.classList.remove(CLASSES.SHOW);
@@ -50,25 +58,72 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
         }
-    };
+    }
 
-    showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
+    /**
+     * Aplica a classe 'active' no link selecionado na navbar
+     */
+    function activateLinks() {
+        const linkColor = document.querySelectorAll('.nav_link');
+        const currentPath = window.location.pathname;
 
-    const linkColor = document.querySelectorAll('.nav_link');
-
-    function colorLink() {
-        if (linkColor) {
+        function colorLink() {
             linkColor.forEach(l => l.classList.remove(CLASSES.ACTIVE));
             this.classList.add(CLASSES.ACTIVE);
         }
+
+        linkColor.forEach(l => l.addEventListener('click', colorLink));
+
+        // Ativar o link com base no caminho atual da página
+        linkColor.forEach(l => {
+            if (l.getAttribute('href') === currentPath) {
+                l.classList.add(CLASSES.ACTIVE);
+            }
+        });
     }
 
-    linkColor.forEach(l => l.addEventListener('click', colorLink));
+    /**
+     * Alterna entre temas claro e escuro e salva a preferência no localStorage
+     */
+    function toggleTheme() {
+        const body = document.body;
+        const currentTheme = localStorage.getItem('theme');
 
-    const currentPath = window.location.pathname;
-    linkColor.forEach(l => {
-        if (l.getAttribute('href') === currentPath) {
-            l.classList.add(CLASSES.ACTIVE);
+        // Alterna entre 'light' e 'dark'
+        if (currentTheme === "light") {
+            body.classList.remove("light-mode");
+            localStorage.setItem("theme", "dark");
+        } else {
+            body.classList.add("light-mode");
+            localStorage.setItem("theme", "light");
         }
-    });
+    }
+
+    /**
+     * Aplica o tema salvo no localStorage quando a página é carregada
+     */
+    function applySavedTheme() {
+        const savedTheme = localStorage.getItem("theme");
+
+        if (savedTheme === "light") {
+            document.body.classList.add("light-mode");
+        }
+    }
+
+    /**
+     * Adiciona o event listener no botão de tema
+     */
+    function setupThemeToggleButton() {
+        const themeToggleButton = document.getElementById("theme-toggle");
+
+        if (themeToggleButton) {
+            themeToggleButton.addEventListener('click', toggleTheme);
+        }
+    }
+
+    // Inicialização das funções
+    showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
+    activateLinks();
+    applySavedTheme();
+    setupThemeToggleButton(); // Inicializa o botão de tema
 });
