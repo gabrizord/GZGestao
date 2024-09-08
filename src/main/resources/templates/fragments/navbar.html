@@ -7,23 +7,45 @@
 <div class="l-navbar top-0 border border-black border-opacity-75 position-fixed" id="nav-bar" layout:fragment="navbar">
     <nav class="d-flex flex-column justify-content-between overflow-hidden h-100">
         <div>
-            <a href="#" class="nav_logo"> <img th:src="@{protected/assets/icon.svg}" alt="Ícone" class="nav_logo-icon"> <span class="nav_logo-name">GZGestão</span> </a>
+            <a href="#" class="nav_logo">
+                <img th:src="@{protected/assets/icon.svg}" alt="Ícone" class="nav_logo-icon">
+                <span class="nav_logo-name">GZGestão</span>
+            </a>
             <div class="nav_list">
-                <a th:href="@{/home}" class="nav_link"> <i class="bx bx-grid-alt nav_icon"></i> <span class="nav_name">Dashboard</span> </a>
-                <a th:href="@{/employees}" class="nav_link" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}"> <i class="bx bx-group nav_icon"></i> <span class="nav_name">Colaboradores</span> </a>
-                <a th:href="@{/companies}" class="nav_link"> <i class="bx bx-building-house nav_icon"></i> <span class="nav_name">Organizações</span> </a>
-                <a href="#" class="nav_link"> <i class="bx bx-wrench nav_icon"></i> <span class="nav_name">Manutenções</span> </a>
-                <a href="#" class="nav_link"> <i class="bx bx-list-check nav_icon"></i> <span class="nav_name">Preventivas</span> </a>
+                <a th:href="@{/home}" class="nav_link">
+                    <i class="bx bx-grid-alt nav_icon"></i>
+                    <span class="nav_name">Dashboard</span>
+                </a>
+                <a th:href="@{/employees}" class="nav_link" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+                    <i class="bx bx-group nav_icon"></i>
+                    <span class="nav_name">Colaboradores</span>
+                </a>
+                <a th:href="@{/companies}" class="nav_link">
+                    <i class="bx bx-building-house nav_icon"></i>
+                    <span class="nav_name">Organizações</span>
+                </a>
+                <a href="#" class="nav_link">
+                    <i class="bx bx-wrench nav_icon"></i>
+                    <span class="nav_name">Manutenções</span>
+                </a>
+                <a href="#" class="nav_link">
+                    <i class="bx bx-list-check nav_icon"></i>
+                    <span class="nav_name">Preventivas</span>
+                </a>
             </div>
         </div>
-
-        <form id="logoutForm" th:action="@{/logout}" method="post">
-            <button type="submit" class="nav_link">
-                <i class="bx bx-log-out nav_icon"></i>
-                <span class="nav_name">Sair</span>
+        <div>
+            <button class="nav_link" id="theme-toggle">
+                <i class="bx bx-moon nav_icon" id="dark-mode-icon"></i>
+                <span class="nav_name">Modo Escuro</span>
             </button>
-        </form>
-
+            <form id="logoutForm" th:action="@{/logout}" method="post">
+                <button type="submit" class="nav_link">
+                    <i class="bx bx-log-out nav_icon"></i>
+                    <span class="nav_name">Sair</span>
+                </button>
+            </form>
+        </div>
     </nav>
 </div>
 </body>

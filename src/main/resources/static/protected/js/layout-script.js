@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * Applies the 'active' class to the selected navbar link
      */
     function activateLinks() {
-        const linkColor = document.querySelectorAll('.nav_link');
+        const linkColor = document.querySelectorAll('.nav_list .nav_link');
         const currentPath = window.location.pathname;
 
         function colorLink() {
