@@ -1,38 +1,73 @@
 .gradient-custom {
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
 }
 
 :root {
-    --primary-color: #001f54;
-    --primary-hover: #2772FB;
-    --text-color: #fff;
+    --blue-color: #1e40af; /* Azul principal da caixa de login */
+    --blue-gradient: linear-gradient(45deg, #1e40af, #2563eb); /* Gradiente da caixa de login */
+    --text-color: #ffffff;
+    --text-muted: #8a94a6;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
 }
 
-.bg-teal {
-    background-color: var(--primary-color);
+.title-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem; /* Aumentando o tamanho do título */
+    font-weight: 700; /* Peso mais forte para dar destaque */
+    letter-spacing: 0.5px; /* Pequeno espaçamento entre as letras */
 }
 
-.btn-teal {
-    background-color: var(--primary-color);
+.bg-blue {
+    background-color: var(--blue-color);
+}
+
+.btn-blue-gradient {
+    background: var(--blue-gradient);
     color: var(--text-color);
-    transition: background-color 0.3s ease; /* Animação suave na transição */
+    border: none;
+    transition: background 0.3s ease;
 }
 
-.btn-teal:hover {
-    background-color: var(--primary-hover);
+.btn-blue-gradient:hover {
+    background: linear-gradient(45deg, #2563eb, #1e3a8a);
 }
 
-.card-header img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
+.card-header {
+    border-top-left-radius: 1rem; /* Certifique-se de que os cantos do header também estejam arredondados */
+    border-top-right-radius: 1rem;
+    padding: 1.5rem;
+    background: var(--blue-gradient);
+    color: var(--text-color);
+    border: none; /* Remove qualquer borda que possa aparecer */
 }
 
-.card-header span {
-    font-weight: 500; /* Opcional: para dar destaque ao texto */
+.input-group-text {
+    background: var(--blue-color);
+    color: var(--text-color);
+    border: none;
+}
+
+.input-group .form-control:focus {
+    border-color: var(--blue-color);
+    box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.25);
+}
+
+.card {
+    border: none;
+    border-radius: 1rem; /* Certifique-se de que a borda da caixa esteja arredondada */
+    overflow: hidden; /* Isso garantirá que o conteúdo que sai dos cantos arredondados seja cortado */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra à caixa */
+    background-clip: padding-box; /* Garante que o fundo e o conteúdo respeitem o border-radius */
+}
+
+.card-body {
+    color: var(--text-muted);
+}
+
+label {
+    color: var(--text-muted);
 }
