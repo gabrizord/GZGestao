@@ -5,6 +5,8 @@ import br.com.gabrizord.gzgestao.dto.CompanyUpdateDTO;
 import br.com.gabrizord.gzgestao.model.Company;
 import br.com.gabrizord.gzgestao.repository.CompanyRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,12 +20,14 @@ import java.util.function.Consumer;
 @Service
 public class CompanyService {
 
+    private static final String COMPANY_NOT_FOUND_MESSAGE = "Company not found.";
     CompanyRepository companyRepository;
 
     public CompanyService(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
     }
 
+    @CacheEvict(value = {"companies", "companyById", "companiesByName"}, allEntries = true)
     public Company saveCompany(CompanyDTO companyDTO) {
         companyRepository.findByCnpj(companyDTO.getCnpj())
                 .ifPresent(company -> {
@@ -32,22 +36,25 @@ public class CompanyService {
         return companyRepository.save(companyDTO.convertToEntity());
     }
 
+    @Cacheable(value = "companies", key = "'all'")
     public List<Company> getAllCompanies() {
         return companyRepository.findAll();
     }
 
+    @Cacheable(value = "companyById", key = "#id")
     public Company getCompanyById(Long id) {
         Optional<Company> company = companyRepository.findById(id);
-        return company.orElseThrow(() -> new EntityNotFoundException("Empresa não encontrada."));
+        return company.orElseThrow(() -> new EntityNotFoundException(COMPANY_NOT_FOUND_MESSAGE));
     }
 
+    @CacheEvict(value = {"companies", "companyById", "companiesByName"}, key = "#id", allEntries = true)
     public void deleteCompany(Long id) {
-       Company company = getCompanyById(id);
-       companyRepository.delete(company);
+        companyRepository.delete(companyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(COMPANY_NOT_FOUND_MESSAGE)));
     }
 
+    @CacheEvict(value = {"companies", "companyById", "companiesByName"}, key = "#id", allEntries = true)
     public Company updateCompany(Long id, CompanyUpdateDTO companyDTO) {
-        Company existingCompany = getCompanyById(id);
+        Company existingCompany = companyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(COMPANY_NOT_FOUND_MESSAGE));
 
         if (shouldUpdateCnpj(companyDTO, existingCompany)) {
             validateCnpjChange(existingCompany, companyDTO.getCnpj());
@@ -56,6 +63,18 @@ public class CompanyService {
 
         updateCompanyFields(existingCompany, companyDTO);
         return companyRepository.save(existingCompany);
+    }
+
+    @Cacheable(value = "companies", key = "#page + '-' + #size + '-' + #sortField + '-' + #sortDirection")
+    public Page<Company> getPaginatedCompanies(int page, int size, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return companyRepository.findAll(pageable);
+    }
+
+    @Cacheable(value = "companiesByName", key = "#name")
+    public List<Company> findByNameContainingIgnoreCase(String name) {
+        return companyRepository.findByRazaoSocialContainingIgnoreCase(name);
     }
 
     private boolean shouldUpdateCnpj(CompanyUpdateDTO companyDTO, Company existingCompany) {
@@ -84,7 +103,7 @@ public class CompanyService {
         }
     }
 
-    private void validateCnpjChange(Company existingCompany,  String cnpj) {
+    private void validateCnpjChange(Company existingCompany, String cnpj) {
         if (!existingCompany.getCnpj().equals(cnpj)) {
             companyRepository.findByCnpj(cnpj).ifPresent(company -> {
                 if (!company.getId().equals(existingCompany.getId())) {
@@ -92,15 +111,5 @@ public class CompanyService {
                 }
             });
         }
-    }
-
-    public Page<Company> getPaginatedCompanies(int page, int size, String sortField, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
-        Pageable pageable = PageRequest.of(page, size, sort);
-        return companyRepository.findAll(pageable);
-    }
-
-    public List<Company> findByNameContainingIgnoreCase(String name) {
-        return companyRepository.findByRazaoSocialContainingIgnoreCase(name);
     }
 }
