@@ -29,13 +29,9 @@ spring:
     console:
       enabled: false
 
-
 logging:
   level:
-    org:
-      springframework:
-        security: info
-      hibernate: info
-    com:
-      zaxxer:
-        hikari: info
+    root: INFO
+    org.springframework.security: WARN
+    org.hibernate: WARN
+    com.zaxxer.hikari: INFO

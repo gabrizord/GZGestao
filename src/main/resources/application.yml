@@ -17,6 +17,5 @@ jwt:
 
 logging:
   level:
-    org:
-      springframework:
-        security: DEBUG
+    root: INFO
+    org.springframework.security: INFO
