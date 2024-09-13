@@ -9,6 +9,10 @@ spring:
   profiles:
     active: test
 
+  sql:
+    init:
+      mode: never
+
 jwt:
   public:
     key: ${JWT_PUBLIC_KEY}

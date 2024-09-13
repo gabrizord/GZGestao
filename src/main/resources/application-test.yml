@@ -21,7 +21,7 @@ spring:
     open-in-view: false
     defer-datasource-initialization: true
 
-#
+
 jwt:
   public:
     key: ${JWT_PUBLIC_KEY}
@@ -30,6 +30,5 @@ jwt:
 
 logging:
   level:
-    root: DEBUG
-    org.springframework.security: DEBUG
-    org.hibernate: DEBUG
+    root: info
+    org.springframework.security: warn
