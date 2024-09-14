@@ -25,17 +25,23 @@ spring:
     init:
       mode: never
 
+  cache:
+    type: redis
+    redis:
+      time-to-live: 10m
+  data:
+    redis:
+      host: cache-redis
+      port: 6379
+      password: ""
+
   h2:
     console:
       enabled: false
 
-
 logging:
   level:
-    org:
-      springframework:
-        security: info
-      hibernate: info
-    com:
-      zaxxer:
-        hikari: info
+    root: INFO
+    org.springframework.security: WARN
+    org.hibernate: WARN
+    com.zaxxer.hikari: INFO

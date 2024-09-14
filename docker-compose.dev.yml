@@ -13,13 +13,14 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
-          memory: '8g'
+          cpus: '1.5'
+          memory: '6g'
         reservations:
           cpus: '1'
-          memory: '6g'
+          memory: '4g'
     depends_on:
       - db
+      - cache-redis
 
   db:
     image: postgres:latest
@@ -30,6 +31,28 @@ services:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: '1g'
+        reservations:
+          cpus: '0.2'
+          memory: '512m'
+
+  cache-redis:
+    image: redis:7.4
+    container_name: cache-redis
+    ports:
+      - "6379:6379"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: '512m'
+        reservations:
+          cpus: '0.1'
+          memory: '256m'
 
 volumes:
   postgres-data:

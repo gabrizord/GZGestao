@@ -15,12 +15,31 @@ spring:
     password: password
     driver-class-name: org.postgresql.Driver
 
+  cache:
+    type: redis
+    redis:
+      time-to-live: 2m
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: ""
+
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data-dev.sql
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     open-in-view: false
     defer-datasource-initialization: true
+
+  h2:
+    console:
+      enabled: false
 
   thymeleaf:
     cache: false
@@ -34,6 +53,9 @@ spring:
       additional-exclude:
         - custom-dir/**,another-dir/**
 
-  h2:
-    console:
-      enabled: false
+logging:
+  level:
+    root: INFO
+    org.springframework.security: WARN
+    org.hibernate: WARN
+    com.zaxxer.hikari: INFO

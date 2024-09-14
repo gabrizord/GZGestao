@@ -5,6 +5,8 @@ import br.com.gabrizord.gzgestao.dto.EmployeeUpdateDTO;
 import br.com.gabrizord.gzgestao.model.Employee;
 import br.com.gabrizord.gzgestao.repository.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,7 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
+    @CacheEvict(value = {"employees", "employeesByName"}, allEntries = true)
     public Employee createEmployee(EmployeeDTO employeeDTO) {
         employeeRepository.findByEmail(employeeDTO.getEmail()).ifPresent(employee -> {
             throw new IllegalArgumentException("Já existe um funcionário com este email.");
@@ -30,18 +33,22 @@ public class EmployeeService {
         return employeeRepository.save(employeeDTO.convertToEntity());
     }
 
+    @Cacheable(value = "employees", key = "'all'")
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
+    @Cacheable(value = "employee", key = "#id")
     public Optional<Employee> getEmployeeById(Long id) {
         return employeeRepository.findById(id);
     }
 
+    @CacheEvict(value = {"employee", "employees", "employeesByName"}, key = "#id", allEntries = true)
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
     }
 
+    @CacheEvict(value = {"employee", "employees", "employeesByName"}, key = "#id", allEntries = true)
     public Employee updateEmployee(Long id, EmployeeUpdateDTO employeeDTO) {
         Employee existingEmployee = employeeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado"));
@@ -56,6 +63,7 @@ public class EmployeeService {
         return employeeRepository.save(existingEmployee);
     }
 
+    @Cacheable(value = "employees", key = "#page + '-' + #size + '-' + #sortField + '-' + #sortDirection")
     public Page<Employee> getPaginatedEmployees(int page, int size, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -84,6 +92,7 @@ public class EmployeeService {
         }
     }
 
+    @Cacheable(value = "employeesByName", key = "#name")
     public List<Employee> findByNameContainingIgnoreCase(String name) {
         return employeeRepository.findByNameContainingIgnoreCase(name);
     }
