@@ -26,7 +26,7 @@ services:
   cache-redis:
     image: redis:7.4
     restart: always
-    container_name: redis-cache
+    container_name: cache-redis
     ports:
       - "6379:6379"
     deploy:

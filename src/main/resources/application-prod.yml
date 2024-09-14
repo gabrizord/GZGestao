@@ -25,6 +25,16 @@ spring:
     init:
       mode: never
 
+  cache:
+    type: redis
+    redis:
+      time-to-live: 10m
+  data:
+    redis:
+      host: cache-redis
+      port: 6379
+      password: ""
+
   h2:
     console:
       enabled: false
