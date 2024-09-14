@@ -2,6 +2,7 @@ services:
   app:
     image: ${DOCKER_IMAGE}
     container_name: springboot-app
+    restart: always
     ports:
       - "8080:8080"
     environment:
@@ -16,8 +17,23 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: '1.5'
           memory: '8g'
         reservations:
           cpus: '1'
           memory: '6g'
+
+  cache-redis:
+    image: redis:7.4
+    restart: always
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '2g'
+        reservations:
+          cpus: '0.3'
+          memory: '1g'
